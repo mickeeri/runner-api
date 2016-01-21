@@ -1,2 +1,13 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+body {
+	background-color: #CDCBCB;
+}
+
+main {
+	margin-top: 90px;
+	background-color: #F1FFFF;
+	padding: 40px;
+	min-height: 600px;
+}
