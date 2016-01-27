@@ -10,11 +10,16 @@ class DevelopersController < ApplicationController
   def create
   	@developer = Developer.new(developer_params)
   	if @developer.save
+      log_in @developer
   		flash[:success] = "Välkommen till applikationen!"
   		redirect_to @developer
   	else
   		render 'new'
   	end
+  end
+
+  def edit
+    @developer = Developer.find(params[:id])
   end
 
   private

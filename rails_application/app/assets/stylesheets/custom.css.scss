@@ -61,12 +61,12 @@ input {
   }
 }
 
-.error {
-	background-color: #FFEBEE;
+.error, .danger {
+  background-color: #FFEBEE;
 }
 
 .success {
- 	background-color: #D2F7DF;
+  background-color: #D2F7DF;
 }
 
 #error_explanation {

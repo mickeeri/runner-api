@@ -22,6 +22,7 @@ class DevelopersSignupTest < ActionDispatch::IntegrationTest
 		    	password: "password", password_confirmation: "password" }
 		  end
 		  assert_template 'developers/show'
+			assert is_logged_in?
 		  # Check if welcome message is present.
 		  assert_not flash.empty?
 		end

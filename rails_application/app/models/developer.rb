@@ -12,4 +12,11 @@ class Developer < ActiveRecord::Base
   # Password validation
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }
+
+	# Returns hash digest of given string.
+	def Developer.digest(string)
+		# Use min cost parameter in test and high cost paramater in production.
+		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+		BCrypt::Password.create(string, cost: cost)
+	end
 end
