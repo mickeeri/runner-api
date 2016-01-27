@@ -3,5 +3,6 @@
 	<div class="col-md-4">
 		<h2><%=@developer.name %></h2>
 		<h3><%=  @developer.email %></h3>
+		<%= link_to "Ändra uppgifter", edit_developer_path(current_developer) %>
 	</div>
 </div>

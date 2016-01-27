@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   get 'developers/new'
+  #get 'developers/edit'
 
   # Static pages
   root 'static_pages#home'

@@ -11,7 +11,9 @@ class Developer < ActiveRecord::Base
 
   # Password validation
   has_secure_password
-  validates :password, presence: true, length: { minimum: 6 }
+
+	# allow_nil to allow empty password on edit. nil passwords are captured by the has_secure_password method.
+  validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 	# Returns hash digest of given string.
 	def Developer.digest(string)

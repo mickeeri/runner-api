@@ -22,6 +22,16 @@ class DevelopersController < ApplicationController
     @developer = Developer.find(params[:id])
   end
 
+  def update
+    @developer = Developer.find(params[:id])
+    if @developer.update_attributes(developer_params)
+      flash[:success] = "Konto uppdaterat"
+      redirect_to @developer
+    else
+      render 'edit'
+    end
+  end
+
   private
 
     def developer_params

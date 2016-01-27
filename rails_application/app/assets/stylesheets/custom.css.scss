@@ -1,6 +1,13 @@
+// Bootstrap variables.
+$btn-primary-bg: #0B7AB2;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+// Variables
 $state-danger-text: red;
+
+
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -38,12 +45,16 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
+.submit {
+  width: 200px;
+  float: right;
+  // background: #0B7AB2 !important;
+  // border: 1px solid #03699c !important;
+}
+
 input {
   height: auto !important;
 }
-
-
-
 
 // Messages
 .message {
@@ -86,4 +97,14 @@ input {
 	&:hover {
 		color: grey;
 	}
+}
+
+.new-user {
+  margin-top: 30px;
+  border-top: 1px solid silver;
+
+  p {
+    float: right;
+    margin-right: 20px;
+  }
 }
