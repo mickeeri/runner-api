@@ -1,4 +1,4 @@
-class Developer < ActiveRecord::Base
+class User < ActiveRecord::Base
 	before_save { email.downcase! }
 
 	# Name validation
@@ -16,7 +16,7 @@ class Developer < ActiveRecord::Base
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
 	# Returns hash digest of given string.
-	def Developer.digest(string)
+	def User.digest(string)
 		# Use min cost parameter in test and high cost paramater in production.
 		cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
 		BCrypt::Password.create(string, cost: cost)

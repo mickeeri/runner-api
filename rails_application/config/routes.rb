@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   get 'sessions/new'
 
-  get 'developers/new'
-  #get 'developers/edit'
+  #get 'users/new'
+  #get 'users/edit'
 
   # Static pages
   root 'static_pages#home'
   get 'help' => 'static_pages#help'
   get 'about' => 'static_pages#about'
 
-  get 'signup' => 'developers#new'
+  get 'signup' => 'users#new'
 
   # Login pages
   get    'login'   => 'sessions#new'
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
-  resources :developers
+  resources :users
 
   # Example resource route with options:
   #   resources :products do

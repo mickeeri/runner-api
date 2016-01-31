@@ -7,9 +7,11 @@
 				<li><%= link_to "Hjälp", help_path %></li>
 				<li><%= link_to "Om", about_path %></li>
 				<% if logged_in? %>
-					<li><%= link_to "Alla utvecklare", developers_path %></li>
-					<li><%= link_to "Min profil", current_developer %></li>
-					<li><%= link_to "Ändra uppgifter", edit_developer_path(current_developer) %></li>
+					<% if current_user.admin? %>
+						<li><%= link_to "Alla användare", users_path %></li>
+					<% end %>
+					<li><%= link_to "Min profil", current_user %></li>
+					<li><%= link_to "Ändra uppgifter", edit_user_path(current_user) %></li>
 					<li class="divider"></li>
 					<li><%= link_to "Logga ut", logout_path, method: "delete" %></li>
 				<% else %>

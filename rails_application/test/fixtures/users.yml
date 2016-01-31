@@ -3,27 +3,27 @@
 mikael:
   name: "Mikael Eriksson"
   email: "micke@mail.com"
-  password_digest: <%= Developer.digest('password') %>
+  password_digest: <%= User.digest('password') %>
 
 kalle:
   name: "Kalle Persson"
   email: "kalle@hotmail.com"
-  password_digest: <%= Developer.digest('password') %>
+  password_digest: <%= User.digest('password') %>
 
 pelle:
   name: "Pelle Pellesson"
   email: "pelle@hotmail.com"
-  password_digest: <%= Developer.digest('password') %>
+  password_digest: <%= User.digest('password') %>
 
 admin:
   name: "Mikael Persson"
   email: "mikaelp@hotmail.com"
-  password_digest: <%= Developer.digest('password') %>
+  password_digest: <%= User.digest('password') %>
   admin: true
 
 <% 30.times do |n| %>
 developer_<%= n %>:
-  name:  <%= "Utvecklare #{n}" %>
-  email: <%= "utvecklare-#{n}@email.com" %>
-  password_digest: <%= Developer.digest('password') %>
+  name:  <%= "Användare #{n}" %>
+  email: <%= "user-#{n}@email.com" %>
+  password_digest: <%= User.digest('password') %>
 <% end %>

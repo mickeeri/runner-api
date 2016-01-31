@@ -3,12 +3,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    developer = Developer.find_by(email: params[:session][:email].downcase)
-    if developer && developer.authenticate(params[:session][:password])
+    user = User.find_by(email: params[:session][:email].downcase)
+    if user && user.authenticate(params[:session][:password])
       # Login and redirect to dev show page.
-      log_in developer
+      log_in user
       flash[:success] = "Du är nu inloggad"
-      redirect_back_or developer
+      redirect_back_or user
     else
       flash.now[:danger] = 'Fel e-post eller/och lösenord'
       render 'new'

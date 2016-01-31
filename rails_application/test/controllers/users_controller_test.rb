@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class DevelopersControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionController::TestCase
 
   def setup
-    @developer = developers(:mikael)
-    @other_developer = developers(:kalle)
-    @admin = developers(:admin)
+    @user = users(:mikael)
+    @other_user = users(:kalle)
+    @admin = users(:admin)
   end
 
   test "should get new" do
@@ -19,56 +19,56 @@ class DevelopersControllerTest < ActionController::TestCase
   # end
 
   test "should not be able to access edit when not logged in" do
-    get :edit, id: @developer
+    get :edit, id: @user
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should redirect update if not logged in" do
-    patch :update, id: @developer, developer: { name: @developer.name, email: @developer.email }
+    patch :update, id: @user, user: { name: @user.name, email: @user.email }
     assert_not flash.empty?
     assert_redirected_to login_url
   end
 
   test "should not be able to access edit when logged in as wrong user" do
-    log_in_as(@other_developer)
-    get :edit, id: @developer
+    log_in_as(@other_user)
+    get :edit, id: @user
     assert flash.empty?
     assert_redirected_to root_url
   end
 
   test "should not reach update as wrong user" do
-    log_in_as(@other_developer)
-    patch :update, id: @developer, developer: { name: @developer.name, email: @developer.email }
+    log_in_as(@other_user)
+    patch :update, id: @user, user: { name: @user.name, email: @user.email }
     assert flash.empty?
     assert_redirected_to root_url
   end
 
   test "should not access destroy when not logged in" do
-    assert_no_difference 'Developer.count' do
+    assert_no_difference 'User.count' do
       delete :destroy, id: @admin
     end
     assert_redirected_to login_url
   end
 
   test "should not be able to access index it not admin" do
-    log_in_as(@other_developer)
+    log_in_as(@other_user)
     get :index
     assert_redirected_to root_url
   end
 
   test "should not be able to access destroy action if logged in as non-admin" do
-    log_in_as(@other_developer)
-    assert_no_difference 'Developer.count' do
-      delete :destroy, id: @developer
+    log_in_as(@other_user)
+    assert_no_difference 'User.count' do
+      delete :destroy, id: @user
     end
     assert_redirected_to root_url
   end
 
   test "should not be able to edit admin attrubute via web" do
-    log_in_as(@other_developer)
-    assert_not @other_developer.admin?
-    patch :update, id: @other_developer, developer: { admin: true }
-    assert_not @other_developer.admin?
+    log_in_as(@other_user)
+    assert_not @other_user.admin?
+    patch :update, id: @other_user, user: { admin: true }
+    assert_not @other_user.admin?
   end
 end

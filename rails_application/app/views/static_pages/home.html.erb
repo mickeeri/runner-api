@@ -1,7 +1,12 @@
 <% provide(:title, "Hem") %>
 <div class="center jumbotron">
-	<h2>Välkommen till min sida</h2>
-	<p>akdjaskldjaslkdjasdlkasjdlkasjdlkasjdlkasjdlka</p>
+	<h1>Välkommen till min sida</h1>
+	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam blandit elit
+		leo, sed blandit magna consequat at. Etiam nec mauris nulla. Phasellus
+		nulla felis, interdum in ex vel, varius tempor nisi.
+		Vestibulum ultricies semper viverra. Etiam ullamcorper,
+		ipsum non dignissim laoreet, turpis nisi cursus massa,
+		dictum congue augue nisl a elit.</p>
 	<% unless logged_in? %>
 		<%= link_to "Registera dig nu!", signup_path, class: "btn btn-lg btn-primary" %>
 	<% end %>

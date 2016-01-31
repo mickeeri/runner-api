@@ -1,9 +1,9 @@
 require 'test_helper'
 
-class DevelopersLoginTest < ActionDispatch::IntegrationTest
+class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
-    @developer = developers(:mikael)
+    @user = users(:mikael)
   end
 
   test "login with invalid information should show error message" do
@@ -23,16 +23,16 @@ class DevelopersLoginTest < ActionDispatch::IntegrationTest
 
   test "login with valid information followed by logout" do
     get login_path
-    post login_path, session: { email: @developer.email, password: 'password' }
+    post login_path, session: { email: @user.email, password: 'password' }
     assert is_logged_in?
-    assert_redirected_to @developer
+    assert_redirected_to @user
     follow_redirect!
-    assert_template 'developers/show'
+    assert_template 'users/show'
     assert_not flash[:success].empty?
     # Check links.
     assert_select "a[href=?]", login_path, count: 0
     assert_select "a[href=?]", logout_path
-    assert_select "a[href=?]", developer_path(@developer)
+    assert_select "a[href=?]", user_path(@user)
     # Logout
     delete logout_path
     assert_not is_logged_in?
@@ -40,6 +40,6 @@ class DevelopersLoginTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path,      count: 0
-    assert_select "a[href=?]", developer_path(@developer), count: 0
+    assert_select "a[href=?]", user_path(@user), count: 0
   end
 end

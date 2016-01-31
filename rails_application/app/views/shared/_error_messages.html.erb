@@ -1,10 +1,10 @@
-<% if @developer.errors.any? %>
+<% if @user.errors.any? %>
   <div id="error_explanation" class="message error">
-    <strong>Formuläret innehåller <%= @developer.errors.count %> fel</strong>
+    <strong>Formuläret innehåller <%= @user.errors.count %> fel</strong>
     <ul>
-    <% @developer.errors.full_messages.each do |msg| %>
+    <% @user.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
-    <% end %>
+      <% end %>
     </ul>
   </div>
 <% end %>
