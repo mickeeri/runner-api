@@ -13,4 +13,18 @@ class ActiveSupport::TestCase
   def is_logged_in?
     !session[:developer_id].nil?
   end
+
+  def log_in_as(developer, options = {})
+    password = options[:password] || 'password'
+    if integration_test?
+      post login_path, session: { email: developer.email, password: password }
+    else
+      session[:developer_id] = developer.id
+    end
+  end
+
+  private
+    def integration_test?
+      defined?(post_via_redirect)
+    end
 end

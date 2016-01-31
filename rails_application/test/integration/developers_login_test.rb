@@ -24,9 +24,10 @@ class DevelopersLoginTest < ActionDispatch::IntegrationTest
   test "login with valid information followed by logout" do
     get login_path
     post login_path, session: { email: @developer.email, password: 'password' }
-    assert_redirected_to root_path
+    assert is_logged_in?
+    assert_redirected_to @developer
     follow_redirect!
-    assert_template 'static_pages/home'
+    assert_template 'developers/show'
     assert_not flash[:success].empty?
     # Check links.
     assert_select "a[href=?]", login_path, count: 0

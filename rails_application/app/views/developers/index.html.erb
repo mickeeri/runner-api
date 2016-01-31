@@ -1,0 +1,15 @@
+<% provide(:title, 'Alla utvecklare') %>
+<h1>Alla utvecklare</h1>
+
+<%= will_paginate @posts, :previous_label => '<<', :next_label => '>>' %>
+
+<ul class="list-group">
+  <% @developers.each do |developer| %>
+    <li class="list-group-item">
+      <%= link_to developer.name, developer, class: "dev-name-a"%>
+      <%= link_to "", developer, method: :delete, class: "glyphicon glyphicon-trash btn btn-danger delete", data: { confirm: "Är du säker?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @posts, :previous_label => '<<', :next_label => '>>' %>
