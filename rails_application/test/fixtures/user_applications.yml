@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: "Min applikation"
+  description: "Lorem ipsum"
+  api_key: "random string"
+  user: mikael
+
+two:
+  name: MyString
+  description: MyText
+  api_key: MyString
+  user_id:

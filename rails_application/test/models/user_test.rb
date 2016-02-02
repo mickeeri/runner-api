@@ -78,4 +78,12 @@ class UserTest < ActiveSupport::TestCase
 		@user.password = @user.password_confirmation = "m" * 5
 		assert_not @user.valid?
 	end
+
+	test "should destroy users application when user is deleted" do
+		@user.save
+		@user.user_applications.create!(name: "appen")
+		assert_difference 'UserApplication.count', -1 do
+			@user.destroy
+		end
+	end
 end

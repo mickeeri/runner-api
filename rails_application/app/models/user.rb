@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+	has_many :user_applications, dependent: :destroy
+
 	before_save { email.downcase! }
 
 	# Name validation

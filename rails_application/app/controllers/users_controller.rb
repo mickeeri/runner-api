@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
   	@user = User.find(params[:id])
+    @applications = @user.user_applications.all
   end
 
   def new
@@ -52,16 +53,6 @@ class UsersController < ApplicationController
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
-    end
-
-    # Confirms that user is logged in.
-    def logged_in_user
-      unless logged_in?
-        # Stores requested URL.
-        store_location
-        flash[:danger] = "Var god logga in."
-        redirect_to login_url
-      end
     end
 
     # Confirms that user is currently logged in user.
