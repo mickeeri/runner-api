@@ -175,6 +175,8 @@ input {
   }
 }
 
+// Delte and edit buttons.
+
 .delete {
   //float: right;
   position: absolute;
@@ -182,8 +184,14 @@ input {
   top: 2px;
 }
 
-// .dev-name-a {
-//     width: 300px;
-//     margin-right: 66%;
-//     display: inline-block;;
-// }
+.edit {
+  position: absolute;
+  right: 45px;
+  top: 2px;
+}
+
+// USERS SHOW PAGE
+.new-app {
+  margin-bottom: 10px;
+  display: block;
+}

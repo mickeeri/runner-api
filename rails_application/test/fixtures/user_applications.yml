@@ -7,7 +7,7 @@ one:
   user: mikael
 
 two:
-  name: MyString
-  description: MyText
-  api_key: MyString
-  user_id:
+  name: "Min andra applkation"
+  description: "Lotem ipsum"
+  api_key: "ajkajdlaskjdakjlhdasddffdsfsd"
+  user_id: mikael
