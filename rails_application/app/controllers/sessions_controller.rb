@@ -7,7 +7,6 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       # Login and redirect to dev show page.
       log_in user
-      flash[:success] = "Du är nu inloggad"
       redirect_back_or user
     else
       flash.now[:danger] = 'Fel e-post eller/och lösenord'

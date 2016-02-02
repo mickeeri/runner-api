@@ -79,7 +79,7 @@ class UserTest < ActiveSupport::TestCase
 		assert_not @user.valid?
 	end
 
-	test "should destroy users application when user is deleted" do
+	test "should destroy users applications when user is deleted" do
 		@user.save
 		@user.user_applications.create!(name: "appen")
 		assert_difference 'UserApplication.count', -1 do

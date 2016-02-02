@@ -175,6 +175,11 @@ input {
   }
 }
 
+// APPLICATION FORM
+textarea {
+  height: 100px !important;
+}
+
 // Delte and edit buttons.
 
 .delete {
@@ -194,4 +199,8 @@ input {
 .new-app {
   margin-bottom: 10px;
   display: block;
+}
+
+.description {
+  max-width: 90%;
 }

@@ -8,7 +8,7 @@ class UsersPageTest < ActionDispatch::IntegrationTest
   end
 
   test "users page should render correctly" do
+    log_in_as(@user)
     get user_path(@user)
   end
-
 end

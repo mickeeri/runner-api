@@ -1,0 +1,17 @@
+<% provide(:title, 'Applikationer') %>
+<h1>Alla applikatoner</h1>
+
+<%= will_paginate @posts, :previous_label => '<<', :next_label => '>>' %>
+
+<ul class="list-group">
+  <% @user_applications.each do |application| %>
+    <li class="list-group-item">
+      <h4><%= application.name %></h4>
+      <p><%= application.description %></p>
+      <p><strong>Ägare: </strong><%= application.user.name %></p>
+      <%= link_to "", application, method: :delete, class: "glyphicon glyphicon-trash btn btn-danger delete", data: { confirm: "Är du säker?" } %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate @posts, :previous_label => '<<', :next_label => '>>' %>
