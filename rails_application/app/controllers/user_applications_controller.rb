@@ -5,7 +5,7 @@ class UserApplicationsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def index
-    @user_applications = UserApplication.order('user_id').paginate(page: params[:page])
+    @user_applications = UserApplication.order('name').paginate(page: params[:page])
   end
 
   def new
