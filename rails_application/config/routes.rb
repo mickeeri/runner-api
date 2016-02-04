@@ -6,9 +6,6 @@ Rails.application.routes.draw do
 
   # Static pages
   root 'static_pages#home'
-  get 'help' => 'static_pages#help'
-  get 'about' => 'static_pages#about'
-
   get 'signup' => 'users#new'
 
   # Login pages
