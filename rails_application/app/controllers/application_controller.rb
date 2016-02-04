@@ -10,14 +10,14 @@ class ApplicationController < ActionController::Base
     # Confirms that user is logged in.
     def logged_in_user
       unless logged_in?
-        # Stores requested URL.
+        # Stores requested URL for friendly forwarding.
         store_location
         flash[:danger] = "Var god logga in."
         redirect_to login_url
       end
     end
 
-    # Check if user is admin.
+    # Check if user is admin. Redirect otherwise.
     def admin
       redirect_to(root_url) unless current_user && current_user.admin?
     end

@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  # Should only be able to edit and update if logged in.
-  # TODO: ändra så bara admin kan se alla användare.
   before_action :logged_in_user, only: [:edit, :update, :destroy]
-  before_action :correct_user, only: [:edit, :update]
+  # Prevent other user from seeing and updating other user.
+  before_action :correct_user, only: [:show, :edit, :update]
+  # Only admin should be able to list and destroy users.
   before_action :admin, only: [:index, :destroy]
 
   def index
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   	@user = User.new(user_params)
   	if @user.save
       log_in @user
-  		flash[:success] = "Välkommen till applikationen!"
+  		flash[:success] = "Välkommen #{@user.name}!"
   		redirect_to @user
   	else
   		render 'new'

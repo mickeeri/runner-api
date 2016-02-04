@@ -13,11 +13,6 @@ class UsersControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # test "should redirect index if not logged in" do
-  #   get :index
-  #   assert_redirected_to login_url
-  # end
-
   test "should not be able to access edit when not logged in" do
     get :edit, id: @user
     assert_not flash.empty?
@@ -51,21 +46,23 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to login_url
   end
 
-  test "should not be able to access index it not admin" do
+  test "should not be able to access index if not admin" do
     log_in_as(@other_user)
+    assert_not @other_user.admin?
     get :index
     assert_redirected_to root_url
   end
 
   test "should not be able to access destroy action if logged in as non-admin" do
     log_in_as(@other_user)
+    assert_not @other_user.admin?
     assert_no_difference 'User.count' do
       delete :destroy, id: @user
     end
     assert_redirected_to root_url
   end
 
-  test "should not be able to edit admin attrubute via web" do
+  test "should not be able to edit admin attribute via web" do
     log_in_as(@other_user)
     assert_not @other_user.admin?
     patch :update, id: @other_user, user: { admin: true }

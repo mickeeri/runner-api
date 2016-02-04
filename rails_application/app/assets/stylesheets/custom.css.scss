@@ -1,30 +1,13 @@
 // Bootstrap variables.
 $btn-primary-bg: #0B7AB2;
-// $navbar-default-link-color: white;
-// $navbar-default-link-hover-color: #0E76BC;
-// $navbar-default-link-active-color: white;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-// #333333 - background grey.
+// VARIABLES AND MIXINS //
 
-
-
-// Variables
 $state-danger-text: red;
 $background-grey: #333333;
-
-@mixin gradient($color1, $color2) {
-  background: #f1e767;
-  background: -moz-radial-gradient(center, ellipse cover, $color1 0%, $color2 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, $color1), color-stop(100%, $color2));
-  background: -webkit-radial-gradient(center, ellipse cover, $color1 0%, $color2 100%);
-  background: -o-radial-gradient(center, ellipse cover, $color1 0%, $color2 100%);
-  background: -ms-radial-gradient(center, ellipse cover, $color1 0%, $color2 100%);
-  background: radial-gradient(ellipse at center, $color1 0%, $color2 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$color1', endColorstr='$color2', GradientType=1 );
-}
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -32,39 +15,10 @@ $background-grey: #333333;
   box-sizing:         border-box;
 }
 
-// p, label, h1 {
-//   color: white;
-// }
-
-
-small {
-  color: #E4E4E4;
-}
-
-// .navbar-default {
-//   background-color: black;
-// }
-
-// header {
-//   // opacity: 0.59;
-//   // filter: alpha(opacity =59);
-//   background-color: black !important;
-// }
-
-.btn-primary {
-    // //color: #fff;
-    // text-shadow: 0 -1px 0 rgba(0,0,0,0.15);
-    // background-color: #60b044;
-    // background-image: -webkit-linear-gradient(#90CCDC, #0B7AB2);
-    // background-image: linear-gradient(#90CCDC, #0B7AB2);
-    // //border-color: #5ca941;
-
-
-}
+// LAYOUT //
 
 body {
-	background-color: #CDCBCB;
-  // background-color: #141414;
+	// background-color: #CDCBCB;
 }
 
 footer {
@@ -73,27 +27,57 @@ footer {
 
 main {
 	margin-top: 90px;
-	background-color: white;
+	// background-color: white;
   //background-color: #FAFAFA;
 	padding: 40px;
 	min-height: 50%;
 }
 
-// label, h1, p {
-//   color: white;
-// }
+// NAVBAR //
 
-/* miscellaneous */
-
-.debug_dump {
-  clear: both;
+#logo {
+  font-size: 1.7em;
+  color: #fff;
+  // text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 10px;
+  font-weight: bold;
   float: left;
-  width: 100%;
-  margin-top: 45px;
-  @include box_sizing;
+  font-family: "Arial", "sans-serif";
+  &:hover {
+    text-decoration: none;
+  }
 }
 
-/* forms */
+.navbar-inverse .navbar-nav > li > a {
+  color: #fff;
+    font-weight: bold;
+  &:hover {
+    color: #9d9d9d;
+  }
+}
+
+// TYPOGRAPHY //
+
+small {
+  // color: #E4E4E4;
+}
+
+// FORMS //
+
+.form-ctrl {
+  height: 28px;
+  padding-left: 3px;
+}
+
+.new-user {
+  margin-top: 30px;
+
+  p {
+    float: right;
+    margin-right: 20px;
+  }
+}
 
 input, textarea, select, .uneditable-input {
   border: 1px solid #bbb;
@@ -102,28 +86,23 @@ input, textarea, select, .uneditable-input {
   @include box_sizing;
 }
 
+textarea {
+  height: 100px !important;
+}
+
 .submit {
   width: 200px;
   float: right;
-  // background: #0B7AB2 !important;
-  // border: 1px solid #03699c !important;
 }
 
-input {
-  height: auto !important;
-}
+// MESSAGES //
 
-// Messages
 .message {
   padding: 20px;
   border: 1px solid #B0BEC5;
   margin-bottom: 30px;
-  /*-webkit-border-radius: 10px;*/
-  /*-moz-border-radius: 10px;*/
-  /*border-radius: 10px;*/
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-  // font-weight:bold;
-  //
+
   ul {
   	padding-left: 20px;
   }
@@ -142,12 +121,7 @@ input {
 }
 
 .success {
-  //background-color: #D2F7DF;
-  @include gradient(#D2F7DF, #D2F7DF);
-}
-
-#error_explanation {
-
+  background-color: #D2F7DF;
 }
 
 .field_with_errors {
@@ -165,22 +139,7 @@ input {
 	}
 }
 
-.new-user {
-  margin-top: 30px;
-  // border-top: 1px solid silver;
-
-  p {
-    float: right;
-    margin-right: 20px;
-  }
-}
-
-// APPLICATION FORM
-textarea {
-  height: 100px !important;
-}
-
-// Delte and edit buttons.
+// DELETE AND EDIT BUTTONS
 
 .delete {
   //float: right;
@@ -203,4 +162,14 @@ textarea {
 
 .description {
   max-width: 90%;
+}
+
+/* MISC */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
 }

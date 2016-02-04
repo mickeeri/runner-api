@@ -6,16 +6,6 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
     @admin = users(:admin)
   end
 
-  # test "index of users should be paginated" do
-  #   log_in_as(@admin)
-  #   get users_path
-  #   assert_template 'users/index'
-  #   assert_select 'div.pagination'
-  #   User.paginate(page: 1).each do |user|
-  #     assert_select 'a[href=?]', user_path(user), text: user.name
-  #   end
-  # end
-
   test "index as admin should include delete links and be paginated" do
     log_in_as(@admin)
     get users_path
@@ -32,10 +22,4 @@ class UsersIndexTest < ActionDispatch::IntegrationTest
       delete user_path(@user)
     end
   end
-
-  # test "index as non-admin shuld not display delete links" do
-  #   log_in_as(@user)
-  #   get users_path
-  #   assert_select 'a', text: 'Ta bort', count: 0
-  # end
 end

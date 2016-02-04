@@ -25,4 +25,10 @@ class UserApplicationTest < ActiveSupport::TestCase
     @application.description = "a" * 251
     assert_not @application.valid?
   end
+
+  test "application should be unique" do
+    duplicate_application = @application.dup
+    @application.save
+    assert_not duplicate_application.valid?
+  end
 end

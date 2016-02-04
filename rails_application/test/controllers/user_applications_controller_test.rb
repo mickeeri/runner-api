@@ -31,6 +31,14 @@ class UserApplicationsControllerTest < ActionController::TestCase
     assert_redirected_to root_url
   end
 
+  test "correct user should be able to delete ones application" do
+    log_in_as(users(:mikael))
+    # assert_not flash.empty?
+    assert_difference 'UserApplication.count', -1 do
+      delete :destroy, id: @application
+    end
+  end
+
   test "should not be able to access edit when logged in as wrong user" do
     log_in_as(users(:kalle))
     get :edit, id: @application
