@@ -1,6 +1,6 @@
-# Ruby on Rails, Registreringsapplikation
+## Ruby on Rails, Registreringsapplikation
 
-## Körinstruktioner
+### Körinstruktioner
 
 Jag använder den [färdiga vagrant-fil](https://github.com/thajo/ruby-on-rails-vagrant) som John tillhandahåller. Det finns också en instruktionsfilm [här](http://orion.lnu.se/pub/education/course/1DV450/vt16/vagrantup.mp4). En förutsättning är att man har [Vagrant](https://www.vagrantup.com/downloads.html) och [Virtual box](https://www.virtualbox.org/wiki/Downloads) (eller liknande) installerat. Det har fungerat utmärkt för mig på Windows 10. 
 
