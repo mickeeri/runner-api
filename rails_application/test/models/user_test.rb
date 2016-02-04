@@ -61,21 +61,21 @@ class UserTest < ActiveSupport::TestCase
 		assert_equal mixed_case_email.downcase, @user.reload.email
 	end
 
-	test "password should be present" do
-		@user.password = @user.password_confirmation = " " * 6
-		assert_not @user.valid?
-	end
+  test "password should be present" do
+    @user.password = @user.password_confirmation = " " * 6
+    assert_not @user.valid?
+  end
 
 	test "password should have minumum length" do
 		@user.password = @user.password_confirmation = "m" * 5
 		assert_not @user.valid?
 	end
 
-	test "should destroy users applications when user is deleted" do
-		@user.save
-		@user.user_applications.create!(name: "appen")
-		assert_difference 'UserApplication.count', -1 do
-			@user.destroy
-		end
-	end
+  test "should destroy users applications when user is deleted" do
+    @user.save
+    @user.user_applications.create!(name: "appen")
+    assert_difference 'UserApplication.count', -1 do
+      @user.destroy
+    end
+  end
 end

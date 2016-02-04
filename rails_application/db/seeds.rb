@@ -18,6 +18,9 @@ User.all.each do |user|
   10.times do |n|
     name = Faker::App.name
     description = Faker::Lorem.sentence(10)
-    user.user_applications.create!(name: name, description: description) unless user.admin?
+    begin
+      random_key = SecureRandom.hex
+    end while UserApplication.exists?(api_key: random_key)
+    user.user_applications.create!(name: name, description: description, api_key: random_key) unless user.admin?
   end
 end
