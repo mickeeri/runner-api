@@ -16,7 +16,6 @@
 //= require turbolinks
 //= require_tree .
 
-
 $(document).ready(function() {
 	$('.dismiss-message').click(function(){
 		$('.message').fadeOut();

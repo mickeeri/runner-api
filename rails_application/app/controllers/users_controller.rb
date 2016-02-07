@@ -1,16 +1,14 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :destroy]
-  # Prevent other user from seeing and updating other user.
   before_action :correct_user, only: [:show, :edit, :update]
-  # Only admin should be able to list and destroy users.
   before_action :admin, only: [:index, :destroy]
+  before_action :fetch_user, only: [:show, :edit, :update, :destroy]
 
   def index
     @users = User.paginate(page: params[:page])
   end
 
   def show
-  	@user = User.find(params[:id])
     @applications = @user.user_applications.all
   end
 
@@ -30,11 +28,10 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # Empty
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Konto uppdaterat"
       redirect_to @user
@@ -44,15 +41,18 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     flash[:success] = "Användare raderad"
     redirect_to users_url
   end
 
   private
-
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    end
+
+    def fetch_user
+      @user = User.find(params[:id])
     end
 
     # Confirms that user is currently logged in user.
