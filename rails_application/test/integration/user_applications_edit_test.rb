@@ -6,7 +6,7 @@ class UserApplicationsEditTestTest < ActionDispatch::IntegrationTest
     @application = @user.user_applications.first
   end
 
-  test "edit application with invalild info should fail" do
+  test "edit application with invalid info should fail" do
     log_in_as(@user)
     get edit_user_application_path(@application)
     assert_template 'user_applications/edit'

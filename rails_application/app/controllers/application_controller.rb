@@ -5,8 +5,17 @@ class ApplicationController < ActionController::Base
   # To use sessions over multiple pages.
   include SessionsHelper
 
-  private
+  protected
+    # To handle problem when user loggs out and hits the browsers back-button. Rails
+    # is caching the page and we can get the previous page.Dont forget to disable
+    # tubrolinks on logout-link
+    def set_cache_buster
+      response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+      response.headers["Pragma"] = "no-cache"
+      response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
+    end
 
+  private
     # Confirms that user is logged in.
     def logged_in_user
       unless logged_in?

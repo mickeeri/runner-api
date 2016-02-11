@@ -5,12 +5,13 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
-  # Returns current logged in dev, if any.
+  # Returns current logged in user, if any.
   def current_user
+    # If current_user is set, otherwise ask the data store.
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
-  # returns true if given dev is currently logged in dev.
+  # returns true if given user is currently logged in user.
   def current_user?(user)
     user == current_user
   end
