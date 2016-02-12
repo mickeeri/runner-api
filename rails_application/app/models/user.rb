@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 255 },
     format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
-  # Handling of user security. 
+  # Handling of user security.
   has_secure_password
 
 	# allow_nil to allow empty password on edit. nil passwords are captured by the has_secure_password method.

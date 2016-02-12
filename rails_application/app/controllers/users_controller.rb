@@ -2,8 +2,8 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update, :destroy]
   before_action :correct_user, only: [:show, :edit, :update]
   before_action :admin, only: [:index, :destroy]
-  before_action :fetch_user, only: [:show, :edit, :update, :destroy, :correct_user]
-  before_action :set_cache_buster, only: [:show]
+  before_action :fetch_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_cache_buster, only: [:show] # application_controller 
 
   def index
     @users = User.paginate(page: params[:page])
@@ -58,6 +58,7 @@ class UsersController < ApplicationController
 
     # Confirms that user is currently logged in user.
     def correct_user
-      redirect_to(root_url) unless current_user?(@user)
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user) # called in sessions_helper
     end
 end
