@@ -11,7 +11,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202093615) do
+ActiveRecord::Schema.define(version: 20160212111846) do
+
+  create_table "bridges", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "length"
+    t.text     "about"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.integer  "creator_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "bridges", ["creator_id"], name: "index_bridges_on_creator_id"
+  add_index "bridges", ["name"], name: "index_bridges_on_name"
+
+  create_table "creators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name"
 
   create_table "user_applications", force: :cascade do |t|
     t.string   "name"
