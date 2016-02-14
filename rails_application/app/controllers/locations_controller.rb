@@ -1,8 +1,10 @@
 class LocationsController < ApplicationController
-  respond_to :xml, :json
+  respond_to :json, :xml
 
   # A better way to catch all the errors - Directing it to a private method
+  rescue_from ActionController::UnknownFormat, with: :raise_bad_format
   rescue_from ActiveRecord::RecordNotFound, with: :raise_not_found
+
 
   # GET /locations
   def index
@@ -24,10 +26,18 @@ class LocationsController < ApplicationController
 end
 
 private
+  # TODO: Lägg dessa i application_controller ?
   def raise_not_found
     @error = ErrorMessage.new("Could not find that resource. Are you using the correct location_id?", "Platsen kunde inte hittas.")
     #render json: @error, status: :bad_request
     respond_with  @error, status: :not_found
+  end
+
+  # Response to wrong format requests.
+  def raise_bad_format
+    @error = ErrorMessage.new("The API does not support the requested format?",
+      "Felaktig förfrågan. Kontakta utvecklare." )
+    render json: @error, status: :bad_request
   end
 
 ################################### Custom class

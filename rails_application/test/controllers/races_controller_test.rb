@@ -20,7 +20,7 @@ class RacesControllerTest < ActionController::TestCase
     assert_routing "races/1", { controller: "races", action: "show", id: '1'}  #check the route
   end
 
-  test "should return 404 and error message in JSON if race not found" do
+  test "should return 404 and error message as JSON if race not found" do
     # Try to get race that don't exist.
     get :show, { id: 454564654, format: "json" }
     assert_response :not_found
@@ -33,7 +33,7 @@ class RacesControllerTest < ActionController::TestCase
     assert_not_nil error["userMessage"]
   end
 
-  test "should return 404 and error message in XML if race not found" do
+  test "should return 404 and error message as XML if race not found" do
     # Try to get race that don't exist.
     get :show, { id: 454564654, format: "xml" }
     assert_response :not_found
