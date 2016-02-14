@@ -11,7 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202093615) do
+ActiveRecord::Schema.define(version: 20160214110544) do
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "city"
+    t.float    "longitude"
+    t.float    "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "locations", ["city"], name: "index_locations_on_city"
+
+  create_table "race_creators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.string   "name"
+    t.date     "date"
+    t.string   "organiser"
+    t.string   "web_site"
+    t.float    "distance"
+    t.integer  "race_creator_id"
+    t.integer  "location_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "races", ["location_id"], name: "index_races_on_location_id"
+  add_index "races", ["name"], name: "index_races_on_name"
+  add_index "races", ["race_creator_id"], name: "index_races_on_race_creator_id"
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "user_applications", force: :cascade do |t|
     t.string   "name"

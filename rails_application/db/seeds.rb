@@ -25,3 +25,9 @@ User.all.each do |user|
       api_key: random_key) unless user.admin?
   end
 end
+
+RaceCreator.create!(name: "Pelle Eriksson", email: "pelle.e@mail.com")
+#@creator2 = RaceCreator.create!(name: Faker::Name.name, email: Faker::Internet.email(name))
+
+RaceCreator.find(1).races.create!(name: "Springtime", date: 2016-02-15, organiser: "IFK Helsingborg",
+  web_site: "http://wwww.springtime.se", distance: 10.00)
