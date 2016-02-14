@@ -1,19 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
+lidingoloppet:
+  name: Lidingöloppet
   date: 2016-02-14
-  organiser: MyString
-  web_site: MyString
-  distance: 
-  race_creator_id: 
-  location_id: 
+  organiser: IFK Lidingö
+  web_site: http://lidingoloppet.se/
+  distance: 30.00
+  race_creator_id: one
+  location_id: lidingo
 
-two:
-  name: MyString
-  date: 2016-02-14
-  organiser: MyString
-  web_site: MyString
-  distance: 
-  race_creator_id: 
-  location_id: 
+springtime:
+  name: Springtime
+  date: 2016-05-14
+  organiser: IFK Helsingborg
+  web_site: http://wwww.springtime.se
+  distance: 10.00
+  race_creator_id: one
+  location_id: helsingborg

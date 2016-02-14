@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  city: MyString
-  longitude: 
-  latitude: 
+helsingborg:
+  city: Helsingborg
+  longitude: 12.7
+  latitude: 56.05
 
-two:
-  city: MyString
-  longitude: 
-  latitude: 
+lidingo:
+  city: Lidingö
+  longitude: 18.15
+  latitude: 59.36
