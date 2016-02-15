@@ -5,7 +5,6 @@ class LocationsControllerTest < ActionController::TestCase
     @location = locations(:helsingborg)
   end
 
-
   test "should list races" do
     assert_routing '/locations', { controller: "locations", action: "index"}  #check the route
     get :index , {format: :json} # check that the action exists
@@ -31,21 +30,25 @@ class LocationsControllerTest < ActionController::TestCase
     assert_not_nil error["userMessage"]
   end
 
-  test "should return 404 and error message as XML if location not found" do
-    # Try to get location that don't exist.
-    get :show, { id: 454564654, format: "xml" }
-    assert_response :not_found
-
-    # Response in header should be xml.
-    assert_equal @response.headers['Content-Type'], 'application/xml; charset=utf-8'
-
-    # assert_select is often used for HTML but works great for XML
-    assert_select 'developerMessage', 1
-    assert_select 'userMessage', 1
-  end
+  # test "should return 404 and error message as XML if location not found" do
+  #   # Try to get location that don't exist.
+  #   get :show, { id: 454564654, format: "xml" }
+  #   assert_response :not_found
+  #
+  #   # Response in header should be xml.
+  #   assert_equal @response.headers['Content-Type'], 'application/xml; charset=utf-8'
+  #
+  #   # assert_select is often used for HTML but works great for XML
+  #   assert_select 'developerMessage', 1
+  #   assert_select 'userMessage', 1
+  # end
 
   test "should return 400 and error message if wrong format is requested" do
     get :show , {id: @location.id, format: "html"} # Api doesn't support html.
     assert_response :bad_request
+    assert_equal @response.headers['Content-Type'], 'application/json; charset=utf-8'
+    error = JSON.parse(response.body)
+    assert_not_nil error["developerMessage"]
+    assert_not_nil error["userMessage"]
   end
 end

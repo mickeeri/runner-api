@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   # To use sessions over multiple pages.
   include SessionsHelper
 
+  respond_to :json, :xml
+
   protected
     # To handle problem when user loggs out and hits the browsers back-button. Rails
     # is caching the page and we can get the previous page.Dont forget to disable
@@ -23,7 +25,7 @@ class ApplicationController < ActionController::Base
         store_location
         flash[:danger] = "Var god logga in."
         redirect_to login_url
-      end
+        end
     end
 
     # Check if user is admin. Redirect otherwise.

@@ -35,5 +35,8 @@ creator2 = RaceCreator.create!(name: "Mikael Eriksson", email: "mikael@mail.com"
 helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, race_creator: creator1)
 
+helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
+  web_site: "http://wwww.hbgmaraton.se", distance: 43.00, race_creator: creator1)
+
 lidingo.races.create!(name: "Lidingöloppet", date: Date.today, organiser: "IFK Lidingö",
   web_site: "http://lidingoloppet.se/", distance: 30.00, race_creator: creator2)
