@@ -29,8 +29,8 @@ Rails.application.routes.draw do
   resources :users, except: [:new]
   resources :user_applications
   resources :races, only: [:index, :show]
-  resources :locations, only: [:index, :show]
-
+  #resources :locations, only: [:index, :show, :create, :new]
+  resources :locations
   # Example resource route with options:
   #   resources :products do
   #     member do

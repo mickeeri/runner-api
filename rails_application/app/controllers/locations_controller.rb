@@ -16,8 +16,32 @@ class LocationsController < ApplicationController
     @location = Location.find(params[:id])
   end
 
+  def create
+    # This is a POST and should have a body with:
+    # { "location":
+    #  {
+    #    "city": "Stockholm",
+    #    "latitude" : "32.324",
+    #    "longitude" : "13.3243"
+    #   }
+    # }
+
+    location = Location.new(location_params)
+    if location.save
+      respond_with location, status: :created
+    else
+      error = ErrorMessage.new("Could not create resource. Bad parameters?", "Kunde inte skapa plats.")
+      render json: error, status: :bad_request
+    end
+  end
+
   private
   #### Private methods ####
+
+  def location_params
+    json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
+    json_params.require(:location).permit(:city, :longitude, :latitude)
+  end
 
   # Raise not found.
   def raise_not_found

@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   before_action :correct_user, only: [:show, :edit, :update]
   before_action :admin, only: [:index, :destroy]
   before_action :fetch_user, only: [:show, :edit, :update, :destroy]
-  before_action :set_cache_buster, only: [:show] # application_controller 
+  before_action :set_cache_buster, only: [:show] # application_controller
 
   def index
     @users = User.paginate(page: params[:page])
