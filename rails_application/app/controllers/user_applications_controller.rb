@@ -15,11 +15,6 @@ class UserApplicationsController < ApplicationController
 
   def create
     @user_application = current_user.user_applications.build(user_application_params)
-    # Creating api-key.
-    begin
-      random_key = SecureRandom.hex
-    end while UserApplication.exists?(api_key: random_key)
-    @user_application.api_key = random_key
     if @user_application.save
       flash[:success] = "#{@user_application.name} är tillagd!"
       redirect_to current_user

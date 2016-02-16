@@ -28,9 +28,9 @@ Rails.application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   resources :users, except: [:new]
   resources :user_applications
-  resources :races, only: [:index, :show]
-  #resources :locations, only: [:index, :show, :create, :new]
-  resources :locations
+  # resources :races, only: [:index, :show]
+  # #resources :locations, only: [:index, :show, :create, :new]
+  # resources :locations
   # Example resource route with options:
   #   resources :products do
   #     member do
@@ -42,6 +42,14 @@ Rails.application.routes.draw do
   #       get 'sold'
   #     end
   #   end
+
+  namespace :api do
+    namespace :v1 do
+      resources :locations
+      resources :races
+      # resources :tags
+    end
+  end
 
   # Example resource route with sub-resources:
   #   resources :products do

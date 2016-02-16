@@ -39,8 +39,9 @@ class LocationsController < ApplicationController
   #### Private methods ####
 
   def location_params
-    json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-    json_params.require(:location).permit(:city, :longitude, :latitude)
+    params.require(:location).permit(:city, :longitude, :latitude)
+    # json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
+    # json_params.require(:location).permit(:city, :longitude, :latitude)
   end
 
   # Raise not found.
