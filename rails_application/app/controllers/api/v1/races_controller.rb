@@ -1,9 +1,9 @@
 module Api
   module V1
-    class RacesController < ApplicationController
+    class RacesController < ApiController
       # GET /races
       def index
-        @races = Race.all
+        @races = Race.limit(@limit).offset(@offset)
       end
 
       # Get /races/:id

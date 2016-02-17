@@ -3,11 +3,11 @@
 one:
   name: "Min applikation"
   description: "Lorem ipsum"
-  api_key: "random string"
+  api_key: "3fae9f3304033cddf0500f953d6a1b95"
   user: mikael
 
 two:
   name: "Min andra app"
   description: "Lotem ipsum"
-  api_key: "ajkajdlaskjdakjlhdasddffdsfsd"
+  api_key: "23aae9f3304033cddf0500f953d6a1b95"
   user_id: mikael

@@ -1,34 +1,24 @@
 module Api
   module V1
     class LocationsController < ApiController
-
-
-      # GET /locations
+      # GET api/v1/locations
       def index
-        @locations = Location.all
+        @locations = Location.limit(@limit).offset(@offset)
       end
 
-      # Get /locations/:id
+      # Get api/v1/locations/:id
       def show
         @location = Location.find(params[:id])
       end
 
+      # POST api/v1/locations
       def create
-        # This is a POST and should have a body with:
-        # { "location":
-        #  {
-        #    "city": "Stockholm",
-        #    "latitude" : "32.324",
-        #    "longitude" : "13.3243"
-        #   }
-        # }
-
         @location = Location.new(location_params)
         if @location.save
           respond_with @location, status: :created, template: 'api/v1/locations/show'
         else
           # @error = ErrorMessage.new("Could not create resource. Bad parameters?", "Kunde inte skapa plats.")
-          # respond_with @error, status: :bad_request, template: 'api/v1/error'
+          render json: { error: "Bad request. Could not create resource."}, status: :bad_request, template: 'api/v1/error'
         end
       end
 
@@ -39,8 +29,6 @@ module Api
         json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
         json_params.require(:location).permit(:city, :longitude, :latitude)
       end
-
-
 
     end
 
