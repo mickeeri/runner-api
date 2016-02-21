@@ -11,17 +11,82 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160221103122) do
+ActiveRecord::Schema.define(version: 20160221191855) do
 
-  create_table "race_tags", force: :cascade do |t|
-    t.integer  "race_id"
-    t.integer  "tag_id"
+  create_table "locations", force: :cascade do |t|
+    t.string   "city"
+    t.float    "longitude"
+    t.float    "latitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "race_tags", ["race_id", "tag_id"], name: "index_race_tags_on_race_id_and_tag_id", unique: true
-  add_index "race_tags", ["race_id"], name: "index_race_tags_on_race_id"
-  add_index "race_tags", ["tag_id"], name: "index_race_tags_on_tag_id"
+  add_index "locations", ["city"], name: "index_locations_on_city"
+
+  create_table "race_creators", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "races", force: :cascade do |t|
+    t.string   "name"
+    t.date     "date"
+    t.string   "organiser"
+    t.string   "web_site"
+    t.float    "distance"
+    t.integer  "race_creator_id"
+    t.integer  "location_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "races", ["location_id"], name: "index_races_on_location_id"
+  add_index "races", ["name"], name: "index_races_on_name"
+  add_index "races", ["race_creator_id"], name: "index_races_on_race_creator_id"
+
+  create_table "taggings", force: :cascade do |t|
+    t.integer  "tag_id"
+    t.integer  "taggable_id"
+    t.string   "taggable_type"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       limit: 128
+    t.datetime "created_at"
+  end
+
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+  add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+
+  create_table "tags", force: :cascade do |t|
+    t.string  "name"
+    t.integer "taggings_count", default: 0
+  end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
+
+  create_table "user_applications", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "api_key"
+    t.integer  "user_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "user_applications", ["api_key"], name: "index_user_applications_on_api_key"
+  add_index "user_applications", ["user_id"], name: "index_user_applications_on_user_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "password_digest"
+    t.boolean  "admin",           default: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
 
 end

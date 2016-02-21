@@ -3,7 +3,12 @@ module Api
     class RacesController < ApiController
       # GET /races
       def index
-        @races = Race.limit(@limit).offset(@offset)
+        if params[:tag]
+          @races = Race.tagged_with(params[:tag]).limit(@limit).offset(@offset)
+        else
+          @races = Race.limit(@limit).offset(@offset)
+        end
+
       end
 
       # Get /races/:id
@@ -12,15 +17,15 @@ module Api
       end
 
       def create
-        location =
-        @race = location.races.build(race_params)
+        # location =
+        # @race = location.races.build(race_params)
       end
 
       private
 
       def race_params
         json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-        json_params.require(:race).permit(:name, :date, :web_site, :distance)
+        json_params.require(:race).permit(:name, :date, :web_site, :distance, :tag_list)
       end
 
     end

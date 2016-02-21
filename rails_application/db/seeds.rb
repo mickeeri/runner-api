@@ -2,8 +2,14 @@
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 # Admin
-User.create(name: "Administratör", email: "admin@mail.com",
+User.create!(name: "Administratör", email: "admin@mail.com",
   password: "password", password_confirmation: "password", admin: true)
+
+example_user = User.create!(name: "Mikael Eriksson", email: "mikael@mail.com",
+  password: "password", password_confirmation: "password")
+
+example_app = example_user.user_applications.create!(name: "Mikaels app", description: "Lorem ipsum")
+example_app.api_key = 'a7da72d10f387bedc973624432f3fc4a'
 
 # Create 90 users
 10.times do |n|
@@ -18,13 +24,14 @@ User.all.each do |user|
   3.times do
     name = Faker::Company.name + ' ' + Faker::App.name
     description = Faker::Lorem.sentence(10)
-    begin
-      random_key = SecureRandom.hex
-    end while UserApplication.exists?(api_key: random_key)
-    user.user_applications.create!(name: name, description: description,
-      api_key: random_key) unless user.admin?
+    # begin
+    #   random_key = SecureRandom.hex
+    # end while UserApplication.exists?(api_key: random_key)
+    user.user_applications.create!(name: name, description: description) unless user.admin?
   end
 end
+
+
 
 helsingborg = Location.create!(city: "Helsingborg", longitude: 12.7, latitude: 56.05)
 lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
@@ -32,7 +39,7 @@ lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
 creator1 = RaceCreator.create!(name: "Pelle Eriksson", email: "pelle.e@mail.com")
 creator2 = RaceCreator.create!(name: "Mikael Eriksson", email: "mikael@mail.com")
 
-helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
+springtime = helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, race_creator: creator1)
 
 helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
@@ -40,3 +47,6 @@ helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organis
 
 lidingo.races.create!(name: "Lidingöloppet", date: Date.today, organiser: "IFK Lidingö",
   web_site: "http://lidingoloppet.se/", distance: 30.00, race_creator: creator2)
+
+springtime.tag_list = ["vårlopp", "skåne", "stad"]
+springtime.save
