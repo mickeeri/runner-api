@@ -14,6 +14,7 @@ class UserApplicationsController < ApplicationController
   end
 
   def create
+    # current_user fetched from sessions_helper
     @user_application = current_user.user_applications.build(user_application_params)
     if @user_application.save
       flash[:success] = "#{@user_application.name} är tillagd!"
@@ -44,14 +45,15 @@ class UserApplicationsController < ApplicationController
   end
 
   private
-    def user_application_params
-      params.require(:user_application).permit(:name, :description)
-    end
 
-    # Fetches user applicaton as before_action to avoid DRY.
-    def fetch_user_application
-      @user_application = UserApplication.find(params[:id])
-    end
+  def user_application_params
+    params.require(:user_application).permit(:name, :description)
+  end
+
+  # Fetches user applicaton as before_action to avoid DRY.
+  def fetch_user_application
+    @user_application = UserApplication.find(params[:id])
+  end
 
     # Prevents other user from deleting a users application by checking that current user
     # owns application with given id.

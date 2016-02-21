@@ -1,6 +1,8 @@
 object @location
 attributes :city, :longitude, :latitude
-# child :races do
-#   attributes :name
-#   node(:location_url) { |race| race_url(race) }
-# end
+
+
+child :races do
+  attributes :name
+  node(:race_url) { |race| api_v1_race_url(race) }
+end
