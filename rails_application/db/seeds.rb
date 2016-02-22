@@ -42,3 +42,5 @@ springtime.tag_list = ["vårlopp", "skåne", "stad"]
 hbg_maraton.tag_list = ["maraton", "skåne"]
 hbg_maraton.save
 springtime.save
+
+ResourceOwner.create!(screenname: "mickeeri", email: "micke_eri@hotmail.com", password: "password", password_confirmation: "password")

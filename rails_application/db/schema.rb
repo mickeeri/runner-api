@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222200846) do
+ActiveRecord::Schema.define(version: 20160222212112) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "city"
@@ -41,8 +41,11 @@ ActiveRecord::Schema.define(version: 20160222200846) do
 
   create_table "resource_owners", force: :cascade do |t|
     t.string   "access_token"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "screenname"
+    t.string   "email"
+    t.string   "password_digest"
   end
 
   create_table "taggings", force: :cascade do |t|

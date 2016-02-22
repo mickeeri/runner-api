@@ -93,6 +93,11 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
+    jwt (1.5.2)
+    knock (1.4.2)
+      bcrypt (~> 3.1)
+      jwt (~> 1.5)
+      rails (>= 4.2)
     listen (3.0.5)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -222,6 +227,7 @@ DEPENDENCIES
   guard-minitest (= 2.3.1)
   jbuilder (~> 2.0)
   jquery-rails
+  knock
   mini_backtrace (= 0.1.3)
   minitest-reporters (= 1.0.5)
   oj

@@ -1,6 +1,8 @@
 module Api
   module V1
     class ApiController < ApplicationController
+
+      include Knock::Authenticable
       # Before actions/filters
       before_filter :api_key
 

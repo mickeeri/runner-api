@@ -2,10 +2,11 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
-  # TODO: uncomment. 
+  # TODO: uncomment.
   #protect_from_forgery with: :null_session
   # To use sessions over multiple pages.
   include SessionsHelper
+  include Knock::Authenticable
 
   respond_to :json, :xml
 
