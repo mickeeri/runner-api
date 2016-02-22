@@ -29,7 +29,6 @@ module Api
         json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
         json_params.require(:location).permit(:city, :longitude, :latitude)
       end
-
     end
 
     # This is a custom class for handling errors

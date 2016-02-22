@@ -6,7 +6,7 @@ class CreateRaces < ActiveRecord::Migration
       t.string :organiser
       t.string :web_site
       t.float :distance
-      t.references :race_creator, index: true, foreign_key: true
+      t.references :resource_owner, index: true, foreign_key: true
       t.references :location, index: true, foreign_key: true
 
       t.timestamps null: false

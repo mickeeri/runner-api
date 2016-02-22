@@ -1,7 +1,7 @@
 class Race < ActiveRecord::Base
   # Associations
-  belongs_to :race_creator
-  belongs_to :location
+  belongs_to :resource_owner
+  has_one :location
   acts_as_taggable
 
   # Validation

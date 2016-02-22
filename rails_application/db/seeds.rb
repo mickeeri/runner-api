@@ -24,14 +24,9 @@ User.all.each do |user|
   3.times do
     name = Faker::Company.name + ' ' + Faker::App.name
     description = Faker::Lorem.sentence(10)
-    # begin
-    #   random_key = SecureRandom.hex
-    # end while UserApplication.exists?(api_key: random_key)
     user.user_applications.create!(name: name, description: description) unless user.admin?
   end
 end
-
-
 
 helsingborg = Location.create!(city: "Helsingborg", longitude: 12.7, latitude: 56.05)
 lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
@@ -42,11 +37,13 @@ creator2 = RaceCreator.create!(name: "Mikael Eriksson", email: "mikael@mail.com"
 springtime = helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, race_creator: creator1)
 
-helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
+hbg_maraton = helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.hbgmaraton.se", distance: 43.00, race_creator: creator1)
 
 lidingo.races.create!(name: "Lidingöloppet", date: Date.today, organiser: "IFK Lidingö",
   web_site: "http://lidingoloppet.se/", distance: 30.00, race_creator: creator2)
 
 springtime.tag_list = ["vårlopp", "skåne", "stad"]
+hbg_maraton.tag_list = ["maraton", "skåne"]
+hbg_maraton.save
 springtime.save
