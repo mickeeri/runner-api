@@ -3,6 +3,7 @@ module Api
     class ApiController < ApplicationController
       # Before actions/filters
       before_filter :api_key
+
       before_action :offset_params, only: [:index, :nearby]
 
       # Rescuing errors with private methods.
@@ -56,6 +57,16 @@ module Api
         end
       end
 
+      # def access_token
+      #   access_token = ResourceOwner.find_by_access_token(params[:access_token])
+      #   render json: { error_message: "Forbidden. Are you the resource owner?"}, status: :unauthorized
+      # end
+
+      def access_token
+        authenticate_or_request_with_http_token do |token, options|
+          ResourceOwner.exists?(access_token: token)
+        end
+      end
     end
   end
 end

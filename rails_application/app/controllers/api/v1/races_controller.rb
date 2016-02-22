@@ -1,6 +1,8 @@
 module Api
   module V1
     class RacesController < ApiController
+      before_action :access_token, only: [:destroy]
+
       # GET /races
       def index
         if params[:q]
@@ -24,6 +26,11 @@ module Api
         else
           render json: { error: "Bad request. Could not create resource. Wrong parameters?"}, status: :bad_request
         end
+      end
+
+      def destroy
+        @race.destroy
+        render json: { message: "Resource destroyed"}, status: :accepted
       end
 
       private
