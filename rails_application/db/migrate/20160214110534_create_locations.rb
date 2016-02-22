@@ -4,7 +4,6 @@ class CreateLocations < ActiveRecord::Migration
       t.string :city, index: true
       t.float :longitude
       t.float :latitude
-      t.references :resource_owner, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -18,7 +18,7 @@ module Api
       end
 
       def create
-        @race = resource_owner.race.build(race_params)
+        @race = resource_owner.races.build(race_params)
         if @race.save
           respond_with @race, status: :created, template: 'api/v1/races/show'
         else

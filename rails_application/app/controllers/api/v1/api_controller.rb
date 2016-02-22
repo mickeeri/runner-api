@@ -49,6 +49,13 @@ module Api
         render json: { error_message: "The API does not support requested format."}, status: :bad_request
       end
 
+      def resource_owner
+        resource_owner = ResourceOwner.find_by_access_token("jsakdjaskd")
+        unless resource_owner
+          resource_owner = ResourceOwner.create!
+        end
+      end
+
     end
   end
 end

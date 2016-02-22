@@ -11,19 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222192319) do
+ActiveRecord::Schema.define(version: 20160222200846) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "city"
     t.float    "longitude"
     t.float    "latitude"
-    t.integer  "resource_owner_id"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "locations", ["city"], name: "index_locations_on_city"
-  add_index "locations", ["resource_owner_id"], name: "index_locations_on_resource_owner_id"
 
   create_table "races", force: :cascade do |t|
     t.string   "name"
@@ -31,10 +29,10 @@ ActiveRecord::Schema.define(version: 20160222192319) do
     t.string   "organiser"
     t.string   "web_site"
     t.float    "distance"
-    t.integer  "resource_owner_id"
     t.integer  "location_id"
     t.datetime "created_at",        null: false
-      t.datetime "updated_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "resource_owner_id"
   end
 
   add_index "races", ["location_id"], name: "index_races_on_location_id"
@@ -43,17 +41,9 @@ ActiveRecord::Schema.define(version: 20160222192319) do
 
   create_table "resource_owners", force: :cascade do |t|
     t.string   "access_token"
-    t.integer  "race_id"
-    t.integer  "location_id"
-    t.integer  "tag_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
-
-  add_index "resource_owners", ["access_token"], name: "index_resource_owners_on_access_token"
-  add_index "resource_owners", ["location_id"], name: "index_resource_owners_on_location_id"
-  add_index "resource_owners", ["race_id"], name: "index_resource_owners_on_race_id"
-  add_index "resource_owners", ["tag_id"], name: "index_resource_owners_on_tag_id"
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"

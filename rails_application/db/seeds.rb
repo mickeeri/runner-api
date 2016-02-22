@@ -5,11 +5,9 @@
 User.create!(name: "Administratör", email: "admin@mail.com",
   password: "password", password_confirmation: "password", admin: true)
 
-example_user = User.create!(name: "Mikael Eriksson", email: "mikael@mail.com",
+example_user = User.create!(name: "Mikael Eriksson", email: "micke_eri@hotmail.com",
   password: "password", password_confirmation: "password")
 
-example_app = example_user.user_applications.create!(name: "Mikaels app", description: "Lorem ipsum")
-example_app.api_key = 'a7da72d10f387bedc973624432f3fc4a'
 
 # Create 90 users
 10.times do |n|
@@ -31,17 +29,14 @@ end
 helsingborg = Location.create!(city: "Helsingborg", longitude: 12.7, latitude: 56.05)
 lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
 
-creator1 = RaceCreator.create!(name: "Pelle Eriksson", email: "pelle.e@mail.com")
-creator2 = RaceCreator.create!(name: "Mikael Eriksson", email: "mikael@mail.com")
-
 springtime = helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
-  web_site: "http://wwww.springtime.se", distance: 10.00, race_creator: creator1)
+  web_site: "http://wwww.springtime.se", distance: 10.00, resource_owner_id: 1)
 
 hbg_maraton = helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
-  web_site: "http://wwww.hbgmaraton.se", distance: 43.00, race_creator: creator1)
+  web_site: "http://wwww.hbgmaraton.se", distance: 43.00, resource_owner_id: 33)
 
 lidingo.races.create!(name: "Lidingöloppet", date: Date.today, organiser: "IFK Lidingö",
-  web_site: "http://lidingoloppet.se/", distance: 30.00, race_creator: creator2)
+  web_site: "http://lidingoloppet.se/", distance: 30.00, resource_owner_id: 45)
 
 springtime.tag_list = ["vårlopp", "skåne", "stad"]
 hbg_maraton.tag_list = ["maraton", "skåne"]

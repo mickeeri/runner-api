@@ -1,7 +1,5 @@
 class ResourceOwner < ActiveRecord::Base
-  has_many :races
-  has_many :locations
-  has_many :tags
+  has_many :races, dependent: :destroy
   before_create :generate_access_token
 
   private
