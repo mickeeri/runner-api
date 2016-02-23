@@ -55,22 +55,22 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
   end
 
-    # Prevents other user from deleting a users application by checking that current user
-    # owns application with given id.
-    def correct_user
-      @user_application = current_user.user_applications.find_by(id: params[:id])
-      redirect_to root_url if @user_application.nil?
-    end
+  # Prevents other user from deleting a users application by checking that current user
+  # owns application with given id.
+  def correct_user
+    @user_application = current_user.user_applications.find_by(id: params[:id])
+    redirect_to root_url if @user_application.nil?
+  end
 
-    # Only admin or correct user should be able to delete application.
-    def admin_or_correct_user
-      if current_user.nil?
-        redirect_to root_url
-      else
-        @user_application = current_user.user_applications.find_by(id: params[:id])
-        unless current_user.admin?
-            redirect_to root_url if @user_application.nil?
-        end
+  # Only admin or correct user should be able to delete application.
+  def admin_or_correct_user
+    if current_user.nil?
+      redirect_to root_url
+    else
+      @user_application = current_user.user_applications.find_by(id: params[:id])
+      unless current_user.admin?
+          redirect_to root_url if @user_application.nil?
       end
     end
+  end
 end

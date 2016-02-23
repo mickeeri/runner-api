@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ApiCreateTest < ActionDispatch::IntegrationTest
+class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
   # def authenticate
   #   token = Knock::AuthToken.new(payload: { sub: resource_owners(:one).id }).token
@@ -9,9 +9,10 @@ class ApiCreateTest < ActionDispatch::IntegrationTest
 
   def setup
     @api_key = user_applications(:one).api_key
-    @resource_owner = resource_owners(:one)
-    @jwt = Knock::AuthToken.new(payload: { sub: @resource_owner.id }).token
-    @race = races(:springtime)
+    @jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:one).id }).token
+    @other_jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:two).id }).token
+    @race = races(:one)
+    #@other_race = races(:two)
   end
 
   # test "should be able to create new location with valid api-key" do
@@ -48,13 +49,12 @@ class ApiCreateTest < ActionDispatch::IntegrationTest
   test 'crate race with valid api-key and auth-token' do
 
     request_body = {
-      "race" => {
-        "name" => "Malmömilen",
-        "organiser" => "IFK Malmö",
-        "date" => "2016-06-23",
-        "web_site" => "http://www.malmomilen.se",
-        "distance" => "10",
-        "location_id" => "2"
+      race: {
+        name: "Malmömilen",
+        organiser: "IFK Malmö",
+        date: "2016-06-23",
+        web_site: "http://www.malmomilen.se",
+        distance: "10"
       }
     }.to_json
 
@@ -97,9 +97,8 @@ class ApiCreateTest < ActionDispatch::IntegrationTest
 
     assert_response :ok
 
-    race = Race.new
-    race.from_json(response.body)
-    assert_equal race.name, 'edited race'
+    parsed_response = JSON.parse(response.body)
+    assert_equal parsed_response['name'], 'edited race'
   end
 
   test 'should be able to destroy race' do
@@ -110,12 +109,25 @@ class ApiCreateTest < ActionDispatch::IntegrationTest
       "Authorization" => "Bearer #{@jwt}"
     }
 
-    assert_difference 'Race.count', -1 do
+    #assert_difference 'Race.count', -1 do
       delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_headers
-    end
+    #end
 
     assert_response :accepted
   end
 
+  test 'should not be possible for other resource owner to destroy resource' do
 
+    request_headers = {
+      "Accept" => "application/json",
+      "Content-Type" => "application/json",
+      "Authorization" => "Bearer #{@other_jwt}"
+    }
+
+    assert_no_difference 'Race.count' do
+      delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_headers
+    end
+
+    assert_response :forbidden
+  end
 end

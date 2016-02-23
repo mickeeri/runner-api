@@ -1,18 +1,18 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-lidingoloppet:
-  name: Lidingöloppet
-  date: 2016-02-14
-  organiser: IFK Lidingö
-  web_site: http://lidingoloppet.se/
-  distance: 30.00
-  location_id: lidingo
-  resource_owner_id: one
-
-springtime:
+one:
   name: Springtime
   date: 2016-05-14
   organiser: IFK Helsingborg
   web_site: http://wwww.springtime.se
   distance: 10.00
-  location_id: helsingborg
-  resource_owner_id: one
+  location: hbg
+  resource_owner: one
+
+two:
+  name: Lidingöloppet
+  date: 2016-02-14
+  organiser: IFK Lidingö
+  web_site: http://lidingoloppet.se/
+  distance: 30.00
+  location: sthlm
+  resource_owner: two

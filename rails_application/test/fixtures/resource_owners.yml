@@ -6,4 +6,6 @@ one:
   password_digest: <%= ResourceOwner.digest('password') %>
 
 two:
-  access_token: MyString
+  screenname: nisse
+  email: nisse@email.com
+  password_digest: <%= ResourceOwner.digest('password') %>

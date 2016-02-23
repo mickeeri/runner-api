@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-helsingborg:
+hbg:
   city: Helsingborg
   longitude: 12.7
   latitude: 56.05
 
-lidingo:
-  city: Lidingö
+sthlm:
+  city: Stockholm
   longitude: 18.15
   latitude: 59.36
