@@ -6,6 +6,7 @@ lidingoloppet:
   web_site: http://lidingoloppet.se/
   distance: 30.00
   location_id: lidingo
+  resource_owner_id: one
 
 springtime:
   name: Springtime
@@ -14,3 +15,4 @@ springtime:
   web_site: http://wwww.springtime.se
   distance: 10.00
   location_id: helsingborg
+  resource_owner_id: one

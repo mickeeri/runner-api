@@ -6,9 +6,8 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery with: :null_session
   # To use sessions over multiple pages.
   include SessionsHelper
-  include Knock::Authenticable
 
-  respond_to :json, :xml
+  # respond_to :json
 
   protected
     # To handle problem when user loggs out and hits the browsers back-button. Rails

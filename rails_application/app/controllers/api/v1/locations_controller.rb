@@ -1,7 +1,7 @@
 module Api
   module V1
     class LocationsController < ApiController
-      before_action :authenticate
+      before_action :authenticate, only: [:create]
       # GET api/v1/locations
       def index
         @locations = Location.limit(@limit).offset(@offset)
@@ -18,8 +18,7 @@ module Api
         if @location.save
           respond_with @location, status: :created, template: 'api/v1/locations/show'
         else
-          # @error = ErrorMessage.new("Could not create resource. Bad parameters?", "Kunde inte skapa plats.")
-          render json: { error: "Bad request. Could not create resource."}, status: :bad_request, template: 'api/v1/error'
+          render json: { error: "Bad request. Could not create resource."}, status: :bad_request
         end
       end
 

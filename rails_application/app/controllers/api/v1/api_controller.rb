@@ -13,6 +13,8 @@ module Api
       rescue_from ActiveRecord::RecordNotFound, with: :raise_not_found
       rescue_from ActionView::MissingTemplate, with: :raise_bad_format
 
+      respond_to :json
+
       # default parameters, TODO: put i config-file?
       OFFSET = 0
       LIMIT = 10
@@ -64,11 +66,11 @@ module Api
       #   render json: { error_message: "Forbidden. Are you the resource owner?"}, status: :unauthorized
       # end
 
-      def access_token
-        authenticate_or_request_with_http_token do |token, options|
-          ResourceOwner.exists?(access_token: token)
-        end
-      end
+      # def access_token
+      #   authenticate_or_request_with_http_token do |token, options|
+      #     ResourceOwner.exists?(access_token: token)
+      #   end
+      # end
     end
   end
 end

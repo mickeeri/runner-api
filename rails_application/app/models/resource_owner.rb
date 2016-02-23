@@ -14,4 +14,10 @@ class ResourceOwner < ActiveRecord::Base
   #     self.access_token = SecureRandom.hex
   #   end while self.class.exists?(access_token: access_token)
   # end
+
+  def self.digest(string)
+    # Use min cost parameter in test and high cost paramater in production.
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 end

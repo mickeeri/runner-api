@@ -22,7 +22,7 @@ admin:
   admin: true
 
 <% 30.times do |n| %>
-developer_<%= n %>:
+user_<%= n %>:
   name:  <%= "Användare #{n}" %>
   email: <%= "user-#{n}@email.com" %>
   password_digest: <%= User.digest('password') %>
