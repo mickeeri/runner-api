@@ -6,8 +6,6 @@ module Api
       before_action :resource_owner?, only: [:edit, :destroy]
       before_action :get_location, only: [:create]
 
-      # TODO: returnerna 403? om inte currrent user?
-
       # GET /races
       def index
         if params[:q]
@@ -27,12 +25,14 @@ module Api
       def create
         # Building race without the :city paramater.
         @race = current_user.races.build(race_params.except(:city))
-        # Beacuse :city is used for creating/finding location object that is assigned here.
+        # Using parameter city to create location in this controller.
         @race.location = @location
         if @race.save
           respond_with @race, status: :created, template: 'api/v1/races/show'
         else
-          render json: { error: "Bad request. Could not create resource. Wrong parameters?"}, status: :bad_request
+          error_message = ErrorMessage.new('Kunde inte skapa resurs. Felaktiga parametrar?',
+            @race.errors.full_messages.first)
+          render json: error_message, status: :bad_request
         end
       end
 
@@ -42,6 +42,11 @@ module Api
       end
 
       def update
+        # If user has sbumitted city param, update location.
+        if race_params[:city]
+          get_location
+          @race.location = @location
+        end
         if @race.update_attributes(race_params.except(:city))
           respond_with @race, status: :ok, template: 'api/v1/races/show'
         else
@@ -56,35 +61,31 @@ module Api
         json_params.require(:race).permit(:name, :date, :organiser, :web_site, :distance, :tag_list, :city)
       end
 
-      # # Ability to send parameter city.
-      # def city_param
-      #   json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-      #   json_params.require(:race).permit(:city)
-      # end
-
       def find_race
         @race = Race.find(params[:id])
       end
 
-      # Checks if person authenticated owns resource.
+      # Check if authenticated user is owner of this resource.
       def resource_owner?
         race = current_user.races.find_by(id: params[:id])
-        render json: { message: "Forbidden. Not resource owner."},
+        render json: { message: "Forbidden. Är du resursens ägare?"},
           status: :forbidden if race.nil?
       end
 
       # Gets location based on paramater city.
       def get_location
-        if race_params[:city]
-          # Try to find location
-          @location = Location.find_by_city(race_params[:city])
-          # If it does not exists create it.
-          if @location.nil?
-            @location = Location.create(city: race_params[:city])
+        # Try to find location
+        @location = Location.find_by_city(race_params[:city])
+        # If it does not exists create it.
+        if @location.nil?
+          @location = Location.new(city: race_params[:city])
+          unless @location.save
+            error_message = ErrorMessage.new('Bad request. Kunde inte skapa resurs.',
+              @location.errors.full_messages.first)
+            render json: error_message, status: :bad_request
           end
         end
       end
-
     end
   end
 end

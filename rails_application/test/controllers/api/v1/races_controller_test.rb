@@ -3,8 +3,8 @@ require 'test_helper'
 class Api::V1::RacesControllerTest < ActionController::TestCase
 
   def setup
-    @lidingoloppet = races(:lidingoloppet)
-    @springtime = races(:springtime)
+    @lidingoloppet = races(:two)
+    @springtime = races(:one)
     @api_key = user_applications(:one).api_key
   end
 

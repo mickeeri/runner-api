@@ -5,7 +5,7 @@ class Api::V1::LocationsControllerTest < ActionController::TestCase
 
 
   def setup
-    @location = locations(:helsingborg)
+    @location = locations(:hbg)
     @api_key = user_applications(:one).api_key
   end
 

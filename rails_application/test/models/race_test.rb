@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RaceTest < ActiveSupport::TestCase
   def setup
-    @race = races(:springtime)
+    @race = races(:one)
   end
 
   test "race should be valid" do

@@ -2,10 +2,11 @@ module Api
   module V1
     class ApiController < ApplicationController
 
+      # Knock gem for api authentification.
       include Knock::Authenticable
+
       # Before actions/filters
       before_filter :api_key
-
       before_action :offset_params, only: [:index, :nearby]
 
       # Rescuing errors with private methods.
@@ -15,7 +16,7 @@ module Api
 
       respond_to :json
 
-      # default parameters, TODO: put i config-file?
+      # default offset paramaters.
       OFFSET = 0
       LIMIT = 10
 
@@ -53,24 +54,6 @@ module Api
         #   "Felaktig förfrågan. Kontakta utvecklare.")
         render json: { error_message: "The API does not support requested format."}, status: :bad_request
       end
-
-      def resource_owner
-        resource_owner = ResourceOwner.find_by_access_token("jsakdjaskd")
-        unless resource_owner
-          resource_owner = ResourceOwner.create!
-        end
-      end
-
-      # def access_token
-      #   access_token = ResourceOwner.find_by_access_token(params[:access_token])
-      #   render json: { error_message: "Forbidden. Are you the resource owner?"}, status: :unauthorized
-      # end
-
-      # def access_token
-      #   authenticate_or_request_with_http_token do |token, options|
-      #     ResourceOwner.exists?(access_token: token)
-      #   end
-      # end
     end
   end
 end

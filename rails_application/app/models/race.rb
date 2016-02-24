@@ -1,12 +1,15 @@
 class Race < ActiveRecord::Base
-  # Associations
   belongs_to :resource_owner
   belongs_to :location
   acts_as_taggable
 
-  # Validation
-  #validates :race_creator_id, presence: true
-  # validates :location_id, presence: true
-
-  #accepts_nested_attributes_for :location
+  validates :name, presence: true, length: { maximum: 150 }
+  # TODO: validate date.
+  validates :date, presence: true
+  validates :organiser, length: { maximum: 150 }
+  validates :web_site, length: { maximum: 255 }
+  validates :distance, presence: true, numericality: { greater_than: 0 }
+  validates :location_id, presence: true
+  validates :resource_owner_id, presence: true
+  #validates :tags, uniqueness: { case_sensitive: false }
 end

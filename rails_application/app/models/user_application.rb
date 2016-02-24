@@ -6,7 +6,7 @@ class UserApplication < ActiveRecord::Base
   validates :api_key, uniqueness: true
   before_create :generate_api_key
 
-private
+  private
 
   def generate_api_key
     begin

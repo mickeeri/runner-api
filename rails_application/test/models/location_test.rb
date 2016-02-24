@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LocationTest < ActiveSupport::TestCase
   def setup
-    @location = locations(:helsingborg)
+    @location = locations(:hbg)
   end
 
   test "race creator should be valid" do

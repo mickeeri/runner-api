@@ -15,38 +15,15 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     #@other_race = races(:two)
   end
 
-  # test "should be able to create new location with valid api-key" do
-  #
-  #   location_params = {
-  #     "location" => {
-  #       "city" => "Stockholm"
-  #     }
-  #   }.to_json
-  #
-  #   request_headers = {
-  #     "Accept" => "application/json",
-  #     "Content-Type" => "application/json",
-  #     "Authorization" => "Bearer #{@jwt}"
-  #   }
-  #
-  #   assert_difference 'Location.count', 1 do
-  #     post "/api/v1/locations?api_key=#{@api_key}", location_params, request_headers
-  #   end
-  #
-  #   # Responser should be 201.
-  #   assert_response :created
-  #
-  #   # Check if response is as expected and that coordinate's are set.
-  #   json_expected_response = {
-  #     "city" => "Stockholm",
-  #     "longitude" => 18.0685808,
-  #     "latitude" => 59.3293235
-  #   }.to_json
-  #
-  #   assert_equal json_expected_response, response.body
-  # end
+  def request_header(token)
+    header = {
+      "Accept" => "application/json",
+      "Content-Type" => "application/json",
+      "Authorization" => "Bearer #{token}"
+    }
+  end
 
-  test 'crate race with valid api-key and auth-token' do
+  test "crate race with valid api-key and auth-token" do
 
     request_body = {
       race: {
@@ -54,7 +31,9 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
         organiser: "IFK Malmö",
         date: "2016-06-23",
         web_site: "http://www.malmomilen.se",
-        distance: "10"
+        distance: "10",
+        city: "Malmö",
+        tag_list: "milen, folkfest, 10K"
       }
     }.to_json
 
@@ -65,20 +44,21 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     }
 
     assert_difference 'Race.count', 1 do
-      post "/api/v1/races?api_key=#{@api_key}", request_body, request_headers
+      race = post "/api/v1/races?api_key=#{@api_key}", request_body, request_header(@jwt)
     end
 
     # Responser should be 201.
     assert_response :created
 
-    # Check some data from response.
-    race = Race.new
-    race.from_json(response.body)
-    assert_equal race.name, 'Malmömilen'
-    assert_equal race.distance, 10
+    # Check some data in the response.
+    parsed_response = JSON.parse(response.body)
+
+    assert_equal parsed_response['name'], 'Malmömilen'
+    assert_equal parsed_response['tags'].first['tag']['name'], 'milen'
+    assert_equal parsed_response['location']['longitude'], 13.003822
   end
 
-  test 'should be able to edit race' do
+  test "should be able to edit race" do
 
     request_body = {
       race: {
@@ -86,48 +66,79 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
       }
     }.to_json
 
-
-    request_headers = {
-      "Accept" => "application/json",
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{@jwt}"
-    }
-
-    put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_headers
+    put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
 
     assert_response :ok
 
     parsed_response = JSON.parse(response.body)
-    assert_equal parsed_response['name'], 'edited race'
+    assert_equal 'edited race', parsed_response['name']
   end
 
-  test 'should be able to destroy race' do
+  test "should be able to edit race and location" do
+    request_body = {
+      race: {
+        name: 'edited race',
+        city: 'Kalmar'
+      }
+    }.to_json
 
-    request_headers = {
-      "Accept" => "application/json",
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{@jwt}"
-    }
+    put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
 
-    #assert_difference 'Race.count', -1 do
-      delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_headers
-    #end
+    assert_response :ok
+
+    #assert_equal(exp, act, msg = nil)
+    parsed_response = JSON.parse(response.body)
+    assert_equal 'edited race', parsed_response['name']
+    assert_equal 'Kalmar', parsed_response['location']['city']
+    assert_equal 16.356779, parsed_response['location']['longitude']
+
+  end
+
+  test "should be able to destroy race" do
+
+    assert_difference 'Race.count', -1 do
+      delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_header(@jwt)
+    end
 
     assert_response :accepted
   end
 
-  test 'should not be possible for other resource owner to destroy resource' do
-
-    request_headers = {
-      "Accept" => "application/json",
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{@other_jwt}"
-    }
+  test "should not be possible for other resource owner to destroy resource" do
 
     assert_no_difference 'Race.count' do
-      delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_headers
+      delete "/api/v1/races/#{@race.id}?api_key=#{@api_key}", '', request_header(@other_jwt)
     end
 
     assert_response :forbidden
+  end
+
+  test "should be able to repace tags" do
+    # Add some tags to race.
+    @race.tag_list.add("vår", "skåne")
+    @race.save
+
+    # Add some other tags.
+    request_body = {
+      race: {
+        tag_list: 'vår, milen'
+      }
+    }.to_json
+
+    put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
+
+    assert_response :ok
+
+    parsed_response = JSON.parse(response.body)
+    assert_equal 'vår', parsed_response['tags'].first['tag']['name']
+    assert_equal 'milen', parsed_response['tags'].second['tag']['name']
+
+  end
+
+  test "should not be able to insert duplicate tags" do
+    # Add some tags to race.
+    @race.tag_list.add("vår", "vår", "vår", "vår", "skog")
+    @race.save
+    # Assert that only one entry of duplicates.
+    assert_equal ["vår", "skog"], @race.tag_list
   end
 end

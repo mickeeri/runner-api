@@ -4,6 +4,8 @@ sv:
     models:
       user: "Användare"
       user_application: "Applikation"
+      race: "Lopp"
+      location: "Plats"
     attributes:
       user:
         name: "Namn"
@@ -14,6 +16,14 @@ sv:
         name: "Namn"
         description: "Beskrivning"
         api_key: "Api-nyckel"
+      race:
+        name: Namn
+        date: Datum
+        organier: Organisatör
+        web_site: Webbsida
+        distance: Längd
+      location:
+        city: Ort  
   date:
     abbr_day_names:
     - sön
