@@ -2,17 +2,11 @@ require 'test_helper'
 
 class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
-  # def authenticate
-  #   token = Knock::AuthToken.new(payload: { sub: resource_owners(:one).id }).token
-  #   request.env['HTTP_AUTHORIZATION'] = "Bearer #{token}"
-  # end
-
   def setup
     @api_key = user_applications(:one).api_key
     @jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:one).id }).token
     @other_jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:two).id }).token
     @race = races(:one)
-    #@other_race = races(:two)
   end
 
   def request_header(token)
@@ -37,12 +31,6 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
       }
     }.to_json
 
-    request_headers = {
-      "Accept" => "application/json",
-      "Content-Type" => "application/json",
-      "Authorization" => "Bearer #{@jwt}"
-    }
-
     assert_difference 'Race.count', 1 do
       race = post "/api/v1/races?api_key=#{@api_key}", request_body, request_header(@jwt)
     end
@@ -52,7 +40,6 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
     # Check some data in the response.
     parsed_response = JSON.parse(response.body)
-
     assert_equal parsed_response['name'], 'Malmömilen'
     assert_equal parsed_response['tags'].first['tag']['name'], 'milen'
     assert_equal parsed_response['location']['longitude'], 13.003822
@@ -112,7 +99,23 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should be able to repace tags" do
+  test "should not be possible to edit resoruce if not owner" do
+
+    request_body = {
+      race: {
+        name: 'edited race'
+      }
+    }.to_json
+
+    put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@other_jwt)
+
+    assert_response :forbidden
+
+    parsed_response = JSON.parse(response.body)
+    assert_not_equal 'edited race', parsed_response['name']
+  end
+
+  test "should be able to replace tags" do
     # Add some tags to race.
     @race.tag_list.add("vår", "skåne")
     @race.save

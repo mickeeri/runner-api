@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   # Static pages
   root 'static_pages#home'
   get 'signup' => 'users#new'
+  get 'api/guide' => 'static_pages#guide'
 
   # Login pages
   get    'login'   => 'sessions#new'

@@ -8,6 +8,8 @@ User.create!(name: "Administratör", email: "admin@mail.com",
 example_user = User.create!(name: "Mikael Eriksson", email: "micke_eri@hotmail.com",
   password: "password", password_confirmation: "password")
 
+example_app = example_user.user_applications.create!(name: "Min app", description: "lorem ipsum")
+example_app.update(api_key: "cf46dd8a63811111469ea022d320f51f")
 
 # Create 90 users
 10.times do |n|
@@ -20,7 +22,7 @@ end
 # Create 3 applications per user.
 User.all.each do |user|
   3.times do
-    name = Faker::Company.name + ' ' + Faker::App.name
+    name = Faker::App.name
     description = Faker::Lorem.sentence(10)
     user.user_applications.create!(name: name, description: description) unless user.admin?
   end
@@ -32,15 +34,16 @@ lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
 springtime = helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, resource_owner_id: 1)
 
-hbg_maraton = helsingborg.races.create!(name: "Helsingborg Maraton", date: Date.today, organiser: "IFK Helsingborg",
+hbg_maraton = helsingborg.races.create!(name: "Helsingborg Maraton", date: '2016-06-26', organiser: "IFK Helsingborg",
   web_site: "http://wwww.hbgmaraton.se", distance: 43.00, resource_owner_id: 33)
 
-lidingo.races.create!(name: "Lidingöloppet", date: Date.today, organiser: "IFK Lidingö",
+lidingo.races.create!(name: "Lidingöloppet", date: '2016-08-28', organiser: "IFK Lidingö",
   web_site: "http://lidingoloppet.se/", distance: 30.00, resource_owner_id: 45)
 
-springtime.tag_list = ["vårlopp", "skåne", "stad"]
+#springtime.tag_list = ["vårlopp", "skåne", "stad"]
 hbg_maraton.tag_list = ["maraton", "skåne"]
+springtime.update(tag_list: ["vårlopp", "skåne", "stad", "milen"])
 hbg_maraton.save
-springtime.save
+# springtime.save
 
-ResourceOwner.create!(screenname: "mickeeri", email: "micke_eri@hotmail.com", password: "password", password_confirmation: "password")
+ResourceOwner.create!(screenname: "ro", email: "resourceowner@example.com", password: "password", password_confirmation: "password")

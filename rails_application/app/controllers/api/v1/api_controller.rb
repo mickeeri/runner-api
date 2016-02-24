@@ -18,7 +18,7 @@ module Api
 
       # default offset paramaters.
       OFFSET = 0
-      LIMIT = 10
+      LIMIT = 50
 
       # Check if user wants offset.
       def offset_params

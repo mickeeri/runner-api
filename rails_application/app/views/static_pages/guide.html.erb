@@ -1,0 +1,42 @@
+<% provide(:title, "Api Guide") %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Metod</th>
+      <th>Ändpunkt</th>
+      <th>Användning</th>
+      <th>Returnerar</th>
+      <th>Autentisering?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td>/api/v1/races</td>
+      <td>Hämta alla springlopp</td>
+      <td>races</td>
+      <td>Nej</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/api/v1/races?tag={tag_name}</td>
+      <td>Hämta lopp taggade med</td>
+      <td>races</td>
+      <td>Nej</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/api/v1/races?q={query}</td>
+      <td>Hämta lopp med sökfråga</td>
+      <td>races</td>
+      <td>Nej</td>
+    </tr>
+    <tr>
+      <td>GET</td>
+      <td>/api/v1/races/{race_id}</td>
+      <td>Hämta ett lopp</td>
+      <td>race</td>
+      <td>Nej</td>
+    </tr>
+  </tbody>
+</table>

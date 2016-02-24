@@ -1,9 +1,9 @@
 module Api
   module V1
     class RacesController < ApiController
-      before_action :authenticate, only: [:create, :destroy, :edit]
+      before_action :authenticate, only: [:create, :destroy, :update]
       before_action :find_race, only: [:show, :destroy, :update]
-      before_action :resource_owner?, only: [:edit, :destroy]
+      before_action :resource_owner?, only: [:update, :destroy]
       before_action :get_location, only: [:create]
 
       # GET /races
@@ -13,7 +13,7 @@ module Api
         elsif params[:tag]
           @races = Race.tagged_with(params[:tag]).limit(@limit).offset(@offset)
         else
-          @races = Race.limit(@limit).offset(@offset)
+          @races = Race.all.order('date ASC').limit(@limit).offset(@offset)
         end
       end
 
