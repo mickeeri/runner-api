@@ -81,7 +81,7 @@ module Api
         race = current_user.races.find_by(id: params[:id])
         if race.nil?
           error_message = ErrorMessage.new('403 Forbidden. Kan bara utföras av resursens ägare',
-            "Kunde inte utföras. Är du resursens ägare?")
+            "Auktoriseringsfel. Kunde inte slutföra begäran.")
           render json: error_message, status: :forbidden
         end
       end

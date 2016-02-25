@@ -33,6 +33,7 @@ lidingo = Location.create!(city: "Lidingö")
 lund = Location.create!(city: "Lund")
 
 ro = ResourceOwner.create!(screenname: "ro", email: "resourceowner@example.com", password: "password", password_confirmation: "password")
+other_ro = ResourceOwner.create!(screenname: "example", email: "notowner@example.com", password: "secret", password_confirmation: "secret")
 
 springtime = ro.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, location_id: helsingborg.id)
