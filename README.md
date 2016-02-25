@@ -15,3 +15,9 @@ Jag använder den [färdiga vagrant-fil](https://github.com/thajo/ruby-on-rails-
 9. `http://localhost:3000/`
 10. För att logga in som admin. E-post: `admin@mail.com`, Lösenord: `password`.
 11. `exit`följt av `vagrant halt` för att avsluta. 
+
+### Api instruktioner
+I applikationen finns en sida som beskriver hur api:et fungerar. Den nås via `/api/guide`.
+
+Det finns också en [Postman-fil](https://github.com/me222wm/1dv450_me222wm/blob/master/ApiTestCollection.json.postman_collection) som samlar de anrop som går att göra mot api:et. Det ska fungera out of the box. Möts du av `401 Unauthorized` eller något annat fel: pröva att använda en annan api-nyckel eller uppdatera autentiserings-tokenet.
+
