@@ -47,7 +47,7 @@ module Api
 
       def destroy
         @race.destroy
-        render json: { success: "Resurs raderad"}, status: :accepted
+        render json: { success: "#{@race.name} raderad"}, status: :accepted
       end
 
       def update

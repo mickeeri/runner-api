@@ -8,6 +8,7 @@ module Api
       # Before actions/filters
       before_filter :api_key
       before_action :offset_params, only: [:index, :nearby]
+      skip_before_action :verify_authenticity_token
 
       # Rescuing errors with private methods.
       rescue_from ActionController::UnknownFormat, with: :raise_bad_format

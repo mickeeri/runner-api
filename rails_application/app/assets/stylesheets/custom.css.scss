@@ -165,7 +165,43 @@ textarea {
   max-width: 90%;
 }
 
-/* MISC */
+
+.intro {
+  font-size: 16px;
+  background-color: #F5F5F5;
+}
+// GUIDE PAGE
+.panel-title {
+  font-size: 18px;
+}
+.panel-body {
+
+  padding-left: 30px;
+
+
+  ul {
+    padding-left: 0;
+    margin-bottom: 30px;
+  }
+  li {
+    list-style-type: none;
+    word-wrap: break-word;
+    font-size: 16px;
+  }
+
+  .code {
+    background: rgba(0,0,0,0.04);
+    padding: 0.2em;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+
+  .well {
+    font-size: 16px;
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  }
+}
+
+// MISC
 
 .debug_dump {
   clear: both;

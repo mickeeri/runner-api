@@ -1,42 +1,215 @@
 <% provide(:title, "Api Guide") %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Metod</th>
-      <th>Ändpunkt</th>
-      <th>Användning</th>
-      <th>Returnerar</th>
-      <th>Autentisering?</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>GET</td>
-      <td>/api/v1/races</td>
-      <td>Hämta alla springlopp</td>
-      <td>races</td>
-      <td>Nej</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/api/v1/races?tag={tag_name}</td>
-      <td>Hämta lopp taggade med</td>
-      <td>races</td>
-      <td>Nej</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/api/v1/races?q={query}</td>
-      <td>Hämta lopp med sökfråga</td>
-      <td>races</td>
-      <td>Nej</td>
-    </tr>
-    <tr>
-      <td>GET</td>
-      <td>/api/v1/races/{race_id}</td>
-      <td>Hämta ett lopp</td>
-      <td>race</td>
-      <td>Nej</td>
-    </tr>
-  </tbody>
-</table>
+
+<h1>Api instruktioner</h1>
+<hr />
+
+<div class="row panel intro panel-default">
+  <div class="panel-body">
+    För att hämta data från api:et behövs en api-nyckel. Som utveckare behöver man
+    därmed skapa ett konto på den här sidan och registera sin applikation. Att skapa, ta bort och
+    redigera resurser kräver autentisering. Detta sker genom att resursägarens uppgifter
+    skickas med i en begäran om ett autentisering-token. Detta token får sedan följa
+    med i de anrop som kräver autentisering. Ett misslyckat autentiseringförsök
+    besvaras med statuskod 404.
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta alla springlopp</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/races</span></li>
+      <li>Returnerar: races</li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111469ea025d320f51f</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta alla lopp med angiven tag</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/races?tag={tag_name}</span></li>
+      <li>Returnerar: races</li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111169ea022d320f51f&tag=skåne</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta lopp med sökfråga</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/races?q={query}</span></li>
+      <li>Returnerar: races</li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111469ea022d320f51f&q=maraton</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta lopp i närheten av angiven plats</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/races?near={location}</span></li>
+      <li>Returnerar: races</li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111469ea022d320f51f&near=lund</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta ett enskilt lopp</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/races/{race_id}</span></li>
+      <li>Returnerar: race</li>
+      <li>Exempel: <span class="code">/api/v1/races/2?api_key=dk46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta alla platser</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/locations</span></li>
+      <li>Returnerar: locations</li>
+      <li>Exempel: <span class="code">/api/v1/locations?api_key=dk46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hämta enskild plats</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: GET</li>
+      <li>URI: <span class="code">/api/v1/locations</span></li>
+      <li>Returnerar: location</li>
+      <li>Exempel: <span class="code">/api/v1/locations/1?api_key=dk46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Nej</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Begäran om autentiserings-token</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: POST</li>
+      <li>URI: <span class="code">/api/v1/auth_token</span></li>
+      <li>Returnerar: jason web token</li>
+    </ul>
+    <h4>Request header</h4>
+    <div class="well">
+      Content-Type: application/json <br />
+      Accept: application/json
+    </div>
+    <h4>Exempel på request</h4>
+    <div class="well">
+      {"auth": {"email": "mail@example.com", "password": "secret"}}
+    </div>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Skapa lopp</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: POST</li>
+      <li>URI: <span class="code">/api/v1/races</span></li>
+      <li>Returnerar: race</li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Ja</li>
+    </ul>
+    <h4>Exempel på request header</h4>
+    <div class="well">
+      Content-Type: application/json <br />
+      Accept: application/json <br />
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjM0
+    </div>
+    <h4>Exempel på request med samtliga parameterar</h4>
+    <div class="well">
+      { "race": { "name": "Lidingöloppet", "organiser" : "IFK Lidingö", "date" : "2016-09-24", "web_site" : "http://www.lidingoloppet.se/",
+          "distance" : "30.00", "city" : "Lidingö", "tag_list" : "terräng", "långlopp" } }
+    </div>
+  </div>
+</div>
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Redigera lopp</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: PUT</li>
+      <li>URI: <span class="code">/api/v1/races/{race_id}</span></li>
+      <li>Returnerar: race</li>
+      <li>Exempel: <span class="code">/api/v1/races/4?api_key=cf46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Ja</li>
+    </ul>
+    <h4>Exempel på request header</h4>
+    <div class="well">
+      Content-Type: application/json <br />
+      Accept: application/json <br />
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjM0
+    </div>
+    <h4>Exempel på request</h4>
+    <div class="well">
+      { "race": { "name": "Redigerat lopp" } }
+    </div>
+  </div>
+</div>
+
+
+<div class="row panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Radera lopp</h3>
+  </div>
+  <div class="panel-body">
+    <ul>
+      <li>Metod: DELETE</li>
+      <li>URI: <span class="code">/api/v1/races/{race_id}</span></li>
+      <li>Returnerar: <span class="code">{ "success" : "Resurs raderad" }</span></li>
+      <li>Exempel: <span class="code">/api/v1/races/4?api_key=cf46dd8a63811111469ea022d320f51f</span></li>
+      <li>Kräver autentisering?: Ja</li>
+    </ul>
+    <h4>Exempel på request header</h4>
+    <div class="well">
+      Content-Type: application/json <br />
+      Accept: application/json <br />
+      Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjM0
+    </div>
+  </div>
+</div>

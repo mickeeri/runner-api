@@ -1,9 +1,10 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
 	<div class="container">
-		<%= link_to "Registreringsapplikation", root_path, id: "logo" %>
+		<%= link_to "Svenska löpartävlingar", root_path, id: "logo" %>
 		<nav>
 			<ul class="nav navbar-nav navbar-right">
 				<li><%= link_to "Hem", root_path %></li>
+        <li><%= link_to "API-guide", api_guide_path %></li>
 				<% if logged_in? %>
 					<% if current_user.admin? %>
 						<li><%= link_to "Adminsida", current_user %></li>

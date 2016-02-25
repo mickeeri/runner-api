@@ -23,5 +23,5 @@ Rails.application.routes.draw do
   end
 
   # Knock for api authorization
-  mount Knock::Engine => "/login"
+  mount Knock::Engine => "/api/v1/"
 end
