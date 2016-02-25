@@ -1,4 +1,4 @@
-## Ruby on Rails, Registreringsapplikation
+## Ruby on Rails, Api
 
 ### Körinstruktioner
 
