@@ -8,8 +8,17 @@ module Api
 
       # GET /races
       def index
+        # Search
         if params[:q]
           @races = Race.where('name LIKE ?', "%#{params[:q]}%")
+        # Find races near location.
+        elsif params[:near]
+          locations_ids = []
+          Location.near(params[:near], 20).each do |location|
+            locations_ids.push(location.id)
+          end
+          @races = Race.where("location_id IN (?)", locations_ids)
+        # Search with tag.
         elsif params[:tag]
           @races = Race.tagged_with(params[:tag]).limit(@limit).offset(@offset)
         else
@@ -25,7 +34,7 @@ module Api
       def create
         # Building race without the :city paramater.
         @race = current_user.races.build(race_params.except(:city))
-        # Using parameter city to create location in this controller.
+        # Using parameter city to assign location in this controller.
         @race.location = @location
         if @race.save
           respond_with @race, status: :created, template: 'api/v1/races/show'
@@ -38,11 +47,11 @@ module Api
 
       def destroy
         @race.destroy
-        render json: { message: "Resource destroyed"}, status: :accepted
+        render json: { success: "Resurs raderad"}, status: :accepted
       end
 
       def update
-        # If user has sbumitted city param, update location.
+        # If user has submitted city param, update location.
         if race_params[:city]
           get_location
           @race.location = @location
@@ -50,7 +59,9 @@ module Api
         if @race.update_attributes(race_params.except(:city))
           respond_with @race, status: :ok, template: 'api/v1/races/show'
         else
-          render json: { message: "Could not edit resource. Wrong parameters?"}, status: :bad_request
+          error_message = ErrorMessage.new('Kunde inte uppdatera resurs. Felaktiga parametrar.',
+            @race.errors.full_messages.first)
+          render json: error_message, status: :bad_request
         end
       end
 
@@ -68,8 +79,11 @@ module Api
       # Check if authenticated user is owner of this resource.
       def resource_owner?
         race = current_user.races.find_by(id: params[:id])
-        render json: { message: "Forbidden. Är du resursens ägare?"},
-          status: :forbidden if race.nil?
+        if race.nil?
+          error_message = ErrorMessage.new('403 Forbidden. Kan bara utföras av resursens ägare',
+            "Kunde inte utföras. Är du resursens ägare?")
+          render json: error_message, status: :forbidden
+        end
       end
 
       # Gets location based on paramater city.

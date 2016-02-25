@@ -2,10 +2,15 @@
 
 hbg:
   city: Helsingborg
-  longitude: 12.7
-  latitude: 56.05
+  longitude: 12.694512
+  latitude: 56.046467
 
 sthlm:
   city: Stockholm
-  longitude: 18.15
-  latitude: 59.36
+  longitude: 18.068581
+  latitude: 59.329323
+
+lund:
+  city: Lund
+  longitude: 13.1910073
+  latitude: 55.7046601

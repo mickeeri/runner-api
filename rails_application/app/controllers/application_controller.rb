@@ -3,11 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
 
   # TODO: uncomment.
-  #protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
   # To use sessions over multiple pages.
   include SessionsHelper
-
-  # respond_to :json
 
   protected
     # To handle problem when user loggs out and hits the browsers back-button. Rails

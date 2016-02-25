@@ -38,21 +38,24 @@ module Api
       def api_key
         user_application = UserApplication.find_by_api_key(params[:api_key])
         unless user_application
-          render json: { error_message: "Missing or invalid API-key"}, status: :unauthorized
+          error_message = ErrorMessage.new('Ingen eller felaktig API-nyckel',
+            "Autentiseringsfel. Kontakta utvecklare.")
+          render json: error_message, status: :unauthorized
         end
       end
 
       # 404 not found
       def raise_not_found
-        #@error_message = ErrorMessage.new("Could not find that resource. Are you using the correct location_id?", "Resursen kunde inte hittas.")
-        render json: { error_message: "Resource not found."}, status: :not_found
+        error_message = ErrorMessage.new('404 Not found. Kunde inte hitta resurs. Använder du rätt id?',
+          "Resursen du söker finns inte.")
+        render json: error_message, status: :not_found
       end
 
       # Response to wrong format requests.
       def raise_bad_format
-        # @error = ErrorMessage.new("The API does not support the requested format?",
-        #   "Felaktig förfrågan. Kontakta utvecklare.")
-        render json: { error_message: "The API does not support requested format."}, status: :bad_request
+        error_message = ErrorMessage.new("Api:et stödjer inte det begärda formatet.",
+          "Felaktig begäran. Kontaka utvecklaren.")
+        render json: error_message, status: :bad_request
       end
     end
   end

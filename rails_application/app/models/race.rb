@@ -11,5 +11,4 @@ class Race < ActiveRecord::Base
   validates :distance, presence: true, numericality: { greater_than: 0 }
   validates :location_id, presence: true
   validates :resource_owner_id, presence: true
-  #validates :tags, uniqueness: { case_sensitive: false }
 end

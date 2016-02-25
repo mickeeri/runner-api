@@ -12,7 +12,7 @@ example_app = example_user.user_applications.create!(name: "Min app", descriptio
 example_app.update(api_key: "cf46dd8a63811111469ea022d320f51f")
 
 # Create 90 users
-10.times do |n|
+20.times do |n|
   name = Faker::Name.name
   email = Faker::Internet.email(name)
   password = "password"
@@ -28,8 +28,9 @@ User.all.each do |user|
   end
 end
 
-helsingborg = Location.create!(city: "Helsingborg", longitude: 12.7, latitude: 56.05)
-lidingo = Location.create!(city: "Lidingö", longitude: 18.15, latitude: 59.36)
+helsingborg = Location.create!(city: "Helsingborg")
+lidingo = Location.create!(city: "Lidingö")
+lund = Location.create!(city: "Lund")
 
 springtime = helsingborg.races.create!(name: "Springtime", date: Date.today, organiser: "IFK Helsingborg",
   web_site: "http://wwww.springtime.se", distance: 10.00, resource_owner_id: 1)
@@ -40,10 +41,13 @@ hbg_maraton = helsingborg.races.create!(name: "Helsingborg Maraton", date: '2016
 lidingo.races.create!(name: "Lidingöloppet", date: '2016-08-28', organiser: "IFK Lidingö",
   web_site: "http://lidingoloppet.se/", distance: 30.00, resource_owner_id: 45)
 
+ro = ResourceOwner.create!(screenname: "ro", email: "resourceowner@example.com", password: "password", password_confirmation: "password")
+
+lundaloppet = ro.races.create!(name: "Lundaloppet", date: "2016-05-14", organiser: "IFK Lund",
+  web_site: "http://www.lundaloppet.se/", distance: 10.00, location_id: lund.id)
+
 #springtime.tag_list = ["vårlopp", "skåne", "stad"]
 hbg_maraton.tag_list = ["maraton", "skåne"]
 springtime.update(tag_list: ["vårlopp", "skåne", "stad", "milen"])
 hbg_maraton.save
 # springtime.save
-
-ResourceOwner.create!(screenname: "ro", email: "resourceowner@example.com", password: "password", password_confirmation: "password")

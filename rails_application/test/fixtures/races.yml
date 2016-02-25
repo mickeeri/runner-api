@@ -16,3 +16,12 @@ two:
   distance: 30.00
   location: sthlm
   resource_owner: two
+
+three:
+    name: Lundaloppet
+    date: 2016-02-14
+    organiser: IFK Lund
+    web_site: http://lundaloppet.se/
+    distance: 30.00
+    location: lund
+    resource_owner: two
