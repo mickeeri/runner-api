@@ -12,13 +12,6 @@ module Api
       def show
         @location = Location.find(params[:id])
       end
-
-      private
-
-      def location_params
-        json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-        json_params.require(:location).permit(:city)
-      end
     end
   end
 end

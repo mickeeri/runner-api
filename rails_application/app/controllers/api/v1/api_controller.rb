@@ -39,7 +39,7 @@ module Api
       def api_key
         user_application = UserApplication.find_by_api_key(params[:api_key])
         unless user_application
-          error_message = ErrorMessage.new('Ingen eller felaktig API-nyckel',
+          error_message = ErrorMessage.new('401','Ingen eller felaktig API-nyckel',
             "Autentiseringsfel. Kontakta utvecklare.")
           render json: error_message, status: :unauthorized
         end
@@ -47,15 +47,15 @@ module Api
 
       # 404 not found
       def raise_not_found
-        error_message = ErrorMessage.new('404 Not found. Kunde inte hitta resurs. Använder du rätt id?',
+        error_message = ErrorMessage.new('404', 'Kunde inte hitta resurs. Använder du rätt id?',
           "Resursen du söker finns inte.")
         render json: error_message, status: :not_found
       end
 
       # Response to wrong format requests.
       def raise_bad_format
-        error_message = ErrorMessage.new("Api:et stödjer inte det begärda formatet.",
-          "Felaktig begäran. Kontaka utvecklaren.")
+        error_message = ErrorMessage.new("400", "Api:et stödjer inte det begärda formatet.",
+          "Felaktig begäran. Kontakta utvecklaren.")
         render json: error_message, status: :bad_request
       end
     end

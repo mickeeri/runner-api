@@ -39,7 +39,7 @@ module Api
         if @race.save
           respond_with @race, status: :created, template: 'api/v1/races/show'
         else
-          error_message = ErrorMessage.new('Kunde inte skapa resurs. Felaktiga parametrar?',
+          error_message = ErrorMessage.new('400', 'Kunde inte skapa resurs. Felaktiga parametrar?',
             @race.errors.full_messages.first)
           render json: error_message, status: :bad_request
         end
@@ -59,7 +59,7 @@ module Api
         if @race.update_attributes(race_params.except(:city))
           respond_with @race, status: :ok, template: 'api/v1/races/show'
         else
-          error_message = ErrorMessage.new('Kunde inte uppdatera resurs. Felaktiga parametrar.',
+          error_message = ErrorMessage.new('400', 'Kunde inte uppdatera resurs. Felaktiga parametrar.',
             @race.errors.full_messages.first)
           render json: error_message, status: :bad_request
         end
@@ -80,7 +80,7 @@ module Api
       def resource_owner?
         race = current_user.races.find_by(id: params[:id])
         if race.nil?
-          error_message = ErrorMessage.new('403 Forbidden. Kan bara utföras av resursens ägare',
+          error_message = ErrorMessage.new('403', 'Kan bara utföras av resursens ägare',
             "Auktoriseringsfel. Kunde inte slutföra begäran.")
           render json: error_message, status: :forbidden
         end
@@ -94,7 +94,7 @@ module Api
         if @location.nil?
           @location = Location.new(city: race_params[:city])
           unless @location.save
-            error_message = ErrorMessage.new('Bad request. Kunde inte skapa resurs.',
+            error_message = ErrorMessage.new('400', 'Kunde inte skapa resurs.',
               @location.errors.full_messages.first)
             render json: error_message, status: :bad_request
           end
