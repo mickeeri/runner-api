@@ -1,5 +1,5 @@
 object @race
-attributes :id, :name, :date, :oragniser, :web_site, :distance, :created_at
+attributes :id, :name, :date, :organiser, :web_site, :distance, :created_at
 
 child(:tags) { attributes :name }
 

@@ -5,4 +5,5 @@ class Location < ActiveRecord::Base
   # Using geocoder to get longtitude and latitude.
   geocoded_by :city
   after_validation :geocode, if: :city_changed?
+  # TODO: Kolla att long och lat verkligen har lagts till. 
 end
