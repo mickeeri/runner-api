@@ -56,4 +56,24 @@ class Api::V1::ApiController < ApplicationController
       "Felaktig begäran. Kontakta utvecklaren.")
     render json: error_message, status: :bad_request
   end
+
+  def authenticate_resource_owner
+    # If knock gems current user is not defined the authorization has failed.
+    unless current_user
+      error_message = ErrorMessage.new('401', 'Autentiserings-token saknas eller är ogiltig.',
+        'Autentisering misslyckades.')
+      render json: error_message, status: :unauthorized
+      return false
+    end
+  end
+
+  # Check if authenticated user is owner of this resource.
+  def resource_owner?
+    race = current_user.races.find_by(id: params[:id])
+    if race.nil?
+      error_message = ErrorMessage.new('403', 'Kan bara utföras av resursens ägare',
+        "Kan inte slutföra begäran. Auktorisering misslyckades.")
+      render json: error_message, status: :forbidden
+    end
+  end
 end

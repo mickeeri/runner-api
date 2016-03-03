@@ -45,6 +45,28 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     assert_equal parsed_response['location']['longitude'], 13.003822
   end
 
+  test "should not be able to create race without valid token" do
+
+    request_body = {
+      race: {
+        name: "Malmöloppet",
+        organiser: "Malmö IF",
+        date: "2016-06-23",
+        web_site: "http://www.malmoloppet.se",
+        distance: "10",
+        city: "Malmö",
+        tag_list: "milen, folkfest, 10K"
+      }
+    }.to_json
+
+
+    assert_no_difference 'Race.count' do
+      race = post "/api/v1/races?api_key=#{@api_key}", request_body, request_header("invalidtoken")
+    end
+
+    assert_response :unauthorized
+  end
+
   test "should be able to edit race" do
 
     request_body = {
@@ -99,7 +121,7 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
-  test "should not be possible to edit resoruce if not owner" do
+  test "should not be possible to edit resource if not owner" do
 
     request_body = {
       race: {
