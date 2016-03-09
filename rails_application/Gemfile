@@ -25,15 +25,12 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'faker',                '~> 1.4.2'
 gem 'will_paginate',           '~> 3.0.7'
 gem 'bootstrap-will_paginate', '~> 0.0.10'
+# For tags.
 gem 'acts-as-taggable-on', '~> 3.4'
+# For jwt
 gem 'knock'
-
-
-# # API authentification
-# gem 'devise'
-# gem 'jwt'
-# gem 'rack-cors'
-
+# Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+gem 'rack-cors', :require => 'rack/cors'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -41,14 +38,9 @@ gem 'knock'
 # gem 'capistrano-rails', group: :development
 
 gem 'responders', '~> 2.0'
-
 gem 'geocoder'
-
-# Gemfile
 gem 'rabl'
-# Also add either `oj` or `yajl-ruby` as the JSON parser
 gem 'oj'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
