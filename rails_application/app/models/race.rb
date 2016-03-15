@@ -3,6 +3,9 @@ class Race < ActiveRecord::Base
   belongs_to :location
   acts_as_taggable
 
+  ActsAsTaggableOn.remove_unused_tags = true
+  ActsAsTaggableOn.force_lowercase = true
+
   validates :name, presence: true, length: { maximum: 150 }
   # TODO: validate date.
   validates :date, presence: true

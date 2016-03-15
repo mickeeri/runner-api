@@ -4,6 +4,10 @@ node (:races) do
   partial "api/v1/races/show", object: @races
 end
 
+node(:limit) {@limit}
+node(:offset) {@offset}
+
+
 if @races.count(:all) == @limit
   node :next_offset do
     @limit + @offset
@@ -15,3 +19,5 @@ if @offset > 0
     @offset - @limit
   end
 end
+
+node(:tags) { ActsAsTaggableOn::Tag.all }

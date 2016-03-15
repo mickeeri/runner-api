@@ -16,12 +16,21 @@ class Api::V1::RacesController < Api::V1::ApiController
         locations_ids.push(location.id)
       end
       @races = Race.where("location_id IN (?)", locations_ids)
-    # Search with tag.
-    elsif params[:tag]
-      @races = Race.tagged_with(params[:tag]).limit(@limit).offset(@offset)
-    else
-      @races = Race.all.order('date ASC').limit(@limit).offset(@offset)
     end
+    # Search with tag.
+    if params[:tags]
+      tags = params[:tags].split('+')
+      # Is @races defined in some of the other if-statements?
+      if @races.nil?
+        @races = Race.tagged_with(tags)
+      else
+        @races = @races.tagged_with(tags)
+      end
+    elsif params[:q].nil?
+      @races = Race.all
+    end
+    # Sorting and limiting.
+    @races = @races.order('date ASC').limit(@limit).offset(@offset)
   end
 
   # Get /races/:id
@@ -30,7 +39,6 @@ class Api::V1::RacesController < Api::V1::ApiController
   end
 
   def create
-
     # Building race without the :city paramater.
     @race = current_user.races.build(race_params.except(:city))
     # Using parameter city to assign location in this controller.
