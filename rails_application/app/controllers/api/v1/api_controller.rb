@@ -71,8 +71,8 @@ class Api::V1::ApiController < ApplicationController
   def resource_owner?
     race = current_user.races.find_by(id: params[:id])
     if race.nil?
-      error_message = ErrorMessage.new('403', 'Kan bara utföras av resursens ägare',
-        "Kan inte slutföra begäran. Auktorisering misslyckades.")
+      error_message = ErrorMessage.new('403', 'Användaren är inte resursens ägare.',
+        "Kan bara utföras av den som skapade resursen.")
       render json: error_message, status: :forbidden
     end
   end

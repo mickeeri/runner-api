@@ -30,6 +30,7 @@ class Api::V1::RacesController < Api::V1::ApiController
       @races = Race.all
     end
     # Sorting and limiting.
+
     @races = @races.order('date ASC').limit(@limit).offset(@offset)
   end
 
