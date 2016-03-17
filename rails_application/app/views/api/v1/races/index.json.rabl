@@ -7,7 +7,6 @@ end
 node(:limit) {@limit}
 node(:offset) {@offset}
 
-
 if @races.count(:all) == @limit
   node :next_offset do
     @limit + @offset

@@ -37,8 +37,8 @@ class Api::V1::ApiController < ApplicationController
   def api_key
     user_application = UserApplication.find_by_api_key(params[:api_key])
     unless user_application
-      error_message = ErrorMessage.new('401','Ingen eller felaktig API-nyckel',
-        "Autentiseringsfel. Kontakta utvecklare.")
+      error_message = ErrorMessage.new('401','Applikationen saknar giltig api-nyckel',
+        "Serverfel. Kontakta utvecklare.")
       render json: error_message, status: :unauthorized
     end
   end

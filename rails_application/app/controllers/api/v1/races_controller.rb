@@ -76,7 +76,7 @@ class Api::V1::RacesController < Api::V1::ApiController
 
   def race_params
     json_params = ActionController::Parameters.new( JSON.parse(request.body.read) )
-    json_params.require(:race).permit(:name, :date, :organiser, :web_site, :distance, :tag_list, :city)
+    json_params.permit(:name, :date, :organiser, :web_site, :distance, :tag_list, :city)
   end
 
   def find_race

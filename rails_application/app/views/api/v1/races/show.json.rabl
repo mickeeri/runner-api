@@ -1,12 +1,8 @@
 object @race
-attributes :name, :date, :organiser, :web_site, :distance, :created_at
+attributes :name, :date, :organiser, :web_site, :tag_list, :distance
 
-node(:race_details) { |race| "race/#{race.id}" }
-
-child(:tags) { attributes :name }
-
-child :location do
-  attributes :city, :longitude, :latitude
-  node(:location_url) { |location| api_v1_location_url(location) }
-  node(:location_path) { |location| api_v1_location_path(location) }
-end
+node(:self_path) { |race| "race/#{race.id}" }
+node(:self_url) { |race| api_v1_race_url(race) }
+node(:city) { |race| race.location.city }
+node(:longitude) { |race| race.location.longitude }
+node(:latitude) { |race| race.location.latitude }
