@@ -20,15 +20,13 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
   test "crate race with valid api-key and auth-token" do
 
     request_body = {
-      race: {
-        name: "Malmömilen",
-        organiser: "IFK Malmö",
-        date: "2016-06-23",
-        web_site: "http://www.malmomilen.se",
-        distance: "10",
-        city: "Malmö",
-        tag_list: "milen, folkfest, 10K"
-      }
+      name: "Malmömilen",
+      organiser: "IFK Malmö",
+      date: "2016-06-23",
+      web_site: "http://www.malmomilen.se",
+      distance: "10",
+      city: "Malmö",
+      tag_list: "MileN, FolKfest, 10K"
     }.to_json
 
     assert_difference 'Race.count', 1 do
@@ -37,12 +35,11 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
     # Responser should be 201.
     assert_response :created
-
     # Check some data in the response.
     parsed_response = JSON.parse(response.body)
-    assert_equal parsed_response['name'], 'Malmömilen'
-    assert_equal parsed_response['tags'].first['tag']['name'], 'milen'
-    assert_equal parsed_response['location']['longitude'], 13.003822
+    assert_equal 'Malmömilen', parsed_response['name'] #assert_equal(exp, act, msg = nil)
+    assert_equal ['milen', 'folkfest', '10k'], parsed_response['tag_list']
+    assert_equal 13.003822, parsed_response['longitude']
   end
 
   test "should not be able to create race without valid token" do
@@ -70,9 +67,7 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
   test "should be able to edit race" do
 
     request_body = {
-      race: {
-        name: 'edited race'
-      }
+      name: 'edited race'
     }.to_json
 
     put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
@@ -85,10 +80,8 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
   test "should be able to edit race and location" do
     request_body = {
-      race: {
-        name: 'edited race',
-        city: 'Kalmar'
-      }
+      name: 'edited race',
+      city: 'Kalmar'
     }.to_json
 
     put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
@@ -98,9 +91,8 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     #assert_equal(exp, act, msg = nil)
     parsed_response = JSON.parse(response.body)
     assert_equal 'edited race', parsed_response['name']
-    assert_equal 'Kalmar', parsed_response['location']['city']
-    assert_equal 16.356779, parsed_response['location']['longitude']
-
+    assert_equal 'Kalmar', parsed_response['city']
+    assert_equal 16.356779, parsed_response['longitude']
   end
 
   test "should be able to destroy race" do
@@ -144,19 +136,15 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
 
     # Add some other tags.
     request_body = {
-      race: {
         tag_list: 'vår, milen'
-      }
     }.to_json
 
     put "/api/v1/races/#{@race.id}?api_key=#{@api_key}", request_body, request_header(@jwt)
 
     assert_response :ok
-
     parsed_response = JSON.parse(response.body)
-    assert_equal 'vår', parsed_response['tags'].first['tag']['name']
-    assert_equal 'milen', parsed_response['tags'].second['tag']['name']
-
+    assert_equal 'vår', parsed_response['tag_list'].first
+    assert_equal 'milen', parsed_response['tag_list'].second
   end
 
   test "should not be able to insert duplicate tags" do

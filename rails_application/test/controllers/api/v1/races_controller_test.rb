@@ -20,7 +20,6 @@ class Api::V1::RacesControllerTest < ActionController::TestCase
   test "should be able to find races near location" do
     get :index, { format: :json, api_key: @api_key, near: "landskrona" }
     assert_response :success
-    #assert_equal(exp, act, msg = nil)
     assert_not_nil assigns(:races).find_by_name("Springtime")
     assert_not_nil assigns(:races).find_by_name("Lundaloppet")
     assert_nil assigns(:races).find_by_name("Lidingöloppet")

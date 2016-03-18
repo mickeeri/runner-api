@@ -16,6 +16,9 @@ class Api::V1::RacesController < Api::V1::ApiController
         locations_ids.push(location.id)
       end
       @races = Race.where("location_id IN (?)", locations_ids)
+      @races.order('date ASC').limit(@limit).offset(@offset)
+      # Stop here. 
+      return
     end
     # Search with tag.
     if params[:tags]
