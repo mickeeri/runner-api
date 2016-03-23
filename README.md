@@ -1,7 +1,10 @@
 ## Ruby on Rails, Api
 
 ### Körinstruktioner
+#### Publikt
+Det finns nu en publicerad version av applikationen på [heroku](https://peaceful-woodland-85717.herokuapp.com/).
 
+#### Lokalt
 Jag använder den [färdiga vagrant-fil](https://github.com/thajo/ruby-on-rails-vagrant) som John tillhandahåller. Det finns också en instruktionsfilm [här](http://orion.lnu.se/pub/education/course/1DV450/vt16/vagrantup.mp4). En förutsättning är att man har [Vagrant](https://www.vagrantup.com/downloads.html) och [Virtual box](https://www.virtualbox.org/wiki/Downloads) (eller liknande) installerat. Det har fungerat utmärkt för mig på Windows 10. 
 
 1. Ladda ner/klona repot. 
@@ -17,7 +20,7 @@ Jag använder den [färdiga vagrant-fil](https://github.com/thajo/ruby-on-rails-
 11. `exit`följt av `vagrant halt` för att avsluta. 
 
 ### Api instruktioner
-I applikationen finns en sida som beskriver hur api:et fungerar. Den nås via `/api/guide`.
+I applikationen finns en sida som beskriver hur api:et fungerar. Den nås via `/api/guide` eller [här](https://peaceful-woodland-85717.herokuapp.com/api/guide).
 
 Det finns också en [Postman-fil](https://github.com/me222wm/1dv450_me222wm/blob/master/ApiTestCollection.json.postman_collection) som samlar de anrop som går att göra mot api:et. Det ska fungera out of the box. Möts du av `401 Unauthorized` eller något annat fel: pröva att använda en annan api-nyckel eller ändra autentiserings-tokenet i request headern. Resursägares uppgifter finns i postman-filen och i seeds-filen. 
 
