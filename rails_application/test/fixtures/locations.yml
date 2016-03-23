@@ -14,3 +14,8 @@ lund:
   city: Lund
   longitude: 13.1910073
   latitude: 55.7046601
+
+angelholm:
+  city: Lund
+  longitude: 12.863881
+  latitude: 56.245748

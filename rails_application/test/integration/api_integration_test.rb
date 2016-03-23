@@ -7,6 +7,7 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     @jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:one).id }).token
     @other_jwt = Knock::AuthToken.new(payload: { sub: resource_owners(:two).id }).token
     @race = races(:one)
+    @nearby_race = races(:four)
   end
 
   def request_header(token)
@@ -17,8 +18,14 @@ class ApiIntegrationTest < ActionDispatch::IntegrationTest
     }
   end
 
-  test "crate race with valid api-key and auth-token" do
+  test "should be able to get one race with nearby races" do
+    get "/api/v1/races/#{@race.id}?api_key=#{@api_key}", "", request_header(@jwt)
+    assert_response :ok
+    parsed_response = JSON.parse(response.body)
+    assert_equal "Änglamilen", parsed_response["nearby_races"][0]["name"]
+  end
 
+  test "crate race with valid api-key and auth-token" do
     request_body = {
       name: "Malmömilen",
       organiser: "IFK Malmö",

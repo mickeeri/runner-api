@@ -25,3 +25,12 @@ three:
     distance: 30.00
     location: lund
     resource_owner: two
+
+four:
+    name: Änglamilen
+    date: 2016-02-14
+    organiser: Ängelholms IF
+    web_site: http://anglamilen.se/
+    distance: 10.00
+    location: angelholm
+    resource_owner: two
