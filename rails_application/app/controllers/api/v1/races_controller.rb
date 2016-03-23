@@ -6,24 +6,14 @@ class Api::V1::RacesController < Api::V1::ApiController
 
   # GET /races
   def index
-    # Search
+    # Search with query.
     if params[:q]
-      @races = Race.where('name LIKE ?', "%#{params[:q]}%")
-    # Find races near location.
-    elsif params[:near]
-      locations_ids = []
-      Location.near(params[:near], 20).each do |location|
-        locations_ids.push(location.id)
-      end
-      @races = Race.where("location_id IN (?)", locations_ids)
-      @races.order('date ASC').limit(@limit).offset(@offset)
-      # Stop here. 
-      return
+      @races = Race.where('lower(name) LIKE ?', "%#{params[:q].downcase}%")
     end
-    # Search with tag.
+    # Search with tags.
     if params[:tags]
       tags = params[:tags].split('+')
-      # Is @races defined in some of the other if-statements?
+      # Is @races not defined in some of the other if-statements?
       if @races.nil?
         @races = Race.tagged_with(tags)
       else
@@ -33,13 +23,19 @@ class Api::V1::RacesController < Api::V1::ApiController
       @races = Race.all
     end
     # Sorting and limiting.
-
     @races = @races.order('date ASC').limit(@limit).offset(@offset)
   end
 
   # Get /races/:id
   def show
-    # empty
+    # Find the locations near this races location.
+    locations_ids = []
+    Location.near(@race.location.city, 20).each do |location|
+      locations_ids.push(location.id)
+    end
+    # Find races in these locations, except the current race.
+    @nearby_races = Race.where("location_id IN (?)", locations_ids).where.not(id: @race.id)
+    @nearby_races.order('date ASC').limit(@limit).offset(@offset)
   end
 
   def create
@@ -58,7 +54,7 @@ class Api::V1::RacesController < Api::V1::ApiController
 
   def destroy
     @race.destroy
-    render json: { success: "#{@race.name} raderad"}, status: :accepted
+    render json: { success: "#{@race.name} är raderat"}, status: :accepted
   end
 
   def update
@@ -89,7 +85,7 @@ class Api::V1::RacesController < Api::V1::ApiController
 
   # Gets location based on paramater city.
   def get_location
-    # Try to find location
+    # Try to find location in db.
     @location = Location.find_by_city(race_params[:city])
     # If it does not exists create it.
     if @location.nil?

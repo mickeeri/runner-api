@@ -9,8 +9,7 @@
     därmed skapa ett konto på den här sidan och registera sin applikation. Att skapa, ta bort och
     redigera resurser kräver autentisering. Detta sker genom att resursägarens uppgifter
     skickas med i en begäran om ett autentisering-token. Detta token får sedan följa
-    med i de anrop som kräver autentisering. Ett misslyckat autentiseringförsök
-    besvaras med statuskod 404.
+    med i de anrop som kräver autentisering.
   </div>
 </div>
 
@@ -31,14 +30,14 @@
 
 <div class="row panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Hämta alla lopp med angiven tag</h3>
+    <h3 class="panel-title">Hämta alla lopp med angivna taggar</h3>
   </div>
   <div class="panel-body">
     <ul>
       <li>Metod: GET</li>
       <li>URI: <span class="code">/api/v1/races?tag={tag_name}</span></li>
       <li>Returnerar: races</li>
-      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111169ea022d320f51f&tag=skåne</span></li>
+      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111169ea022d320f51f&tags=skåne+10km</span></li>
       <li>Kräver autentisering?: Nej</li>
     </ul>
   </div>
@@ -61,22 +60,7 @@
 
 <div class="row panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Hämta lopp i närheten av angiven plats</h3>
-  </div>
-  <div class="panel-body">
-    <ul>
-      <li>Metod: GET</li>
-      <li>URI: <span class="code">/api/v1/races?near={location}</span></li>
-      <li>Returnerar: races</li>
-      <li>Exempel: <span class="code">/api/v1/races?api_key=dk46dd8a63811111469ea022d320f51f&near=lund</span></li>
-      <li>Kräver autentisering?: Nej</li>
-    </ul>
-  </div>
-</div>
-
-<div class="row panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">Hämta ett enskilt lopp</h3>
+    <h3 class="panel-title">Hämta ett enskilt lopp (samt lopp på närliggande platser)</h3>
   </div>
   <div class="panel-body">
     <ul>
@@ -161,8 +145,8 @@
     </div>
     <h4>Exempel på request med samtliga parameterar</h4>
     <div class="well">
-      { "race": { "name": "Lidingöloppet", "organiser" : "IFK Lidingö", "date" : "2016-09-24", "web_site" : "http://www.lidingoloppet.se/",
-          "distance" : "30.00", "city" : "Lidingö", "tag_list" : "terräng", "långlopp" } }
+      { "name": "Lidingöloppet", "organiser" : "IFK Lidingö", "date" : "2016-09-24", "web_site" : "http://www.lidingoloppet.se/",
+          "distance" : "30.00", "city" : "Lidingö", "tag_list" : "terräng, långlopp" }
     </div>
   </div>
 </div>
@@ -187,11 +171,10 @@
     </div>
     <h4>Exempel på request</h4>
     <div class="well">
-      { "race": { "name": "Redigerat lopp" } }
+      { "name": "Redigerat lopp" }
     </div>
   </div>
 </div>
-
 
 <div class="row panel panel-default">
   <div class="panel-heading">
@@ -201,7 +184,7 @@
     <ul>
       <li>Metod: DELETE</li>
       <li>URI: <span class="code">/api/v1/races/{race_id}</span></li>
-      <li>Returnerar: <span class="code">{ "success" : "Resurs raderad" }</span></li>
+      <li>Returnerar: <span class="code">{ "success" : "{Loppets namn} är raderat." }</span></li>
       <li>Exempel: <span class="code">/api/v1/races/4?api_key=cf46dd8a63811111469ea022d320f51f</span></li>
       <li>Kräver autentisering?: Ja</li>
     </ul>
